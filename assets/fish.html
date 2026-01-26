@@ -126,7 +126,7 @@
                 <section id="lunar-status" class="relative">
                     <div class="glass-panel rounded-3xl p-6 md:p-7 text-center moon-glow relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"></div>
-                        
+
                         <div class="flex justify-between items-start mb-4">
                             <span class="text-xs font-medium tracking-wider text-gray-400 uppercase">Today's Moon</span>
                             <div class="flex items-center gap-1 text-gold text-sm">
@@ -145,7 +145,7 @@
                             <h2 class="text-2xl md:text-3xl font-serif text-white mb-1">Waxing Crescent</h2>
                             <p class="text-accent text-sm font-medium">24% Illumination</p>
                         </div>
-                        
+
                         <p class="text-sm md:text-base text-gray-300 leading-relaxed italic border-t border-white/10 pt-4 mt-2">
                             "The growing light activates predator fish. Excellent bite potential in shallow waters."
                         </p>
@@ -210,7 +210,7 @@
                         <h3 class="font-serif text-lg">Target Species</h3>
                         <button data-nav-target="screen-catalog" class="text-xs text-accent hover:underline">View Catalog</button>
                     </div>
-                    
+
                     <div class="space-y-3">
                         <!-- Fish Card 1 -->
                         <div class="glass-panel rounded-xl p-3 flex items-center gap-4 relative overflow-hidden group active:scale-[0.98] transition-transform">
@@ -295,11 +295,7 @@
 
             <!-- MAP SCREEN -->
             <section id="screen-map" class="app-screen hidden space-y-4">
-                <h2 class="font-serif text-xl mt-2">Map Spots</h2>
-                <!-- Embedded Map -->
-                <div class="glass-panel rounded-2xl p-4">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434509374!2d-122.4194150846816!3d37.77492967975909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808c6b2b2b2b%3A0x4b6b2b2b2b2b2b2b!2sSan%20Francisco!5e0!3m2!1sen!2sus!4v1610000000000!5m2!1sen!2sus" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
+
                 <div class="glass-panel rounded-2xl p-4">
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-sm text-gray-300">Nearby Waters (Demo)</span>
@@ -848,7 +844,7 @@
                 .forEach((c, idx) => {
                     const div = document.createElement('div');
                     div.className = 'glass-panel rounded-xl p-2 flex gap-2';
-                    const photo = c.photo 
+                    const photo = c.photo
                         ? `<div class="w-12 h-12 rounded-lg overflow-hidden bg-black/40 flex-shrink-0">
                                 <img src="${c.photo}" class="w-full h-full object-cover" onerror="this.style.display='none'">
                            </div>`
