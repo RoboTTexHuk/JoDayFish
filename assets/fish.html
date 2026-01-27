@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LunaFish - Mystical Fishing Guide</title>
@@ -29,7 +31,7 @@
         }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
     <style>
         ::-webkit-scrollbar { display: none; }
@@ -47,1498 +49,1407 @@
             background-size: 50px 50px;
             opacity: 0.1;
         }
+        @media (min-width: 768px) {
+            #app-container {
+                max-width: none;
+                width: 100vw;
+            }
+        }
     </style>
 </head>
 <body class="bg-deep text-white font-sans overflow-x-hidden antialiased selection:bg-accent selection:text-deep">
-    <!-- Mobile + iPad Container -->
-    <div id="app-container" class="mx-auto min-h-[840px] relative bg-gradient-mystic shadow-2xl overflow-hidden max-w-[375px] md:max-w-[768px]">
-        <!-- Background Elements -->
-        <div class="absolute inset-0 star-bg pointer-events-none"></div>
-        <div class="absolute top-[-100px] right-[-50px] md:right-[-100px] w-64 h-64 md:w-80 md:h-80 bg-accent/10 rounded-full blur-[80px]"></div>
-        <div class="absolute bottom-[-50px] left-[-50px] md:left-[-100px] w-64 h-64 md:w-80 md:h-80 bg-blue-600/10 rounded-full blur-[80px]"></div>
+<!-- Mobile + iPad Container -->
+<div id="app-container" class="mx-auto min-h-[840px] relative bg-gradient-mystic shadow-2xl overflow-hidden max-w-[375px] md:max-w-full">
+    <!-- Background Elements -->
+    <div class="absolute inset-0 star-bg pointer-events-none"></div>
+    <div class="absolute top-[-100px] right-[-50px] md:right-[-100px] w-64 h-64 md:w-80 md:h-80 bg-accent/10 rounded-full blur-[80px]"></div>
+    <div class="absolute bottom-[-50px] left-[-50px] md:left-[-100px] w-64 h-64 md:w-80 md:h-80 bg-blue-600/10 rounded-full blur-[80px]"></div>
 
-        <!-- Header -->
-        <header id="header" class="fixed top-0 left-1/2 -translate-x-1/2 w-[375px] md:w-[768px] z-50 glass-panel border-b-0 border-b-glassBorder">
-            <div class="flex items-center justify-between px-5 md:px-8 h-16 md:h-18">
-                <button id="menu-btn" class="text-white hover:text-accent transition-colors">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-moon text-accent"></i>
-                    <h1 class="font-serif text-lg md:text-xl tracking-wide italic">LunaFish</h1>
-                </div>
-                <button id="header-avatar-btn" class="relative">
-                    <div class="w-8 h-8 md:w-9 md:h-9 rounded-full overflow-hidden border border-glassBorder">
-                        <img id="header-avatar-img" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="User" class="w-full h-full object-cover">
-                    </div>
-                    <div class="absolute top-0 right-0 w-2.5 h-2.5 bg-accent rounded-full border-2 border-deep"></div>
-                </button>
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-1/2 -translate-x-1/2 w-[375px] md:w-full md:max-w-none z-50 glass-panel border-b-0 border-b-glassBorder">
+        <div class="flex items-center justify-between px-5 md:px-8 h-16 md:h-18">
+            <button id="menu-btn" class="text-white hover:text-accent transition-colors">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-moon text-accent"></i>
+                <h1 class="font-serif text-lg md:text-xl tracking-wide italic">LunaFish</h1>
             </div>
-        </header>
-
-        <!-- Sidebar (Hidden by default) -->
-        <div id="sidebar" class="fixed inset-0 z-[60] transform -translate-x-full transition-transform duration-300 pointer-events-none">
-            <div id="sidebar-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-auto"></div>
-            <div class="absolute top-0 left-0 h-full w-[280px] md:w-[320px] bg-mystic border-r border-glassBorder shadow-2xl pointer-events-auto overflow-y-auto">
-                <div class="p-6 pt-10">
-                    <div class="flex items-center gap-3 mb-8">
-                        <div class="w-12 h-12 rounded-full overflow-hidden bg-accent/20 flex items-center justify-center text-accent">
-                            <img id="sidebar-avatar-img" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="User" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <h3 id="sidebar-name" class="font-serif text-lg">Alex River</h3>
-                            <p id="sidebar-meta" class="text-xs text-gray-400">Pisces • Spinning</p>
-                        </div>
-                    </div>
-                    <nav class="space-y-4">
-                        <button data-nav-target="screen-today" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl bg-accent/10 text-accent font-medium">
-                            <i class="fa-solid fa-house w-5"></i> Home
-                        </button>
-                        <button data-nav-target="screen-catalog" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 transition-colors">
-                            <i class="fa-solid fa-book-open w-5"></i> Fish Catalog
-                        </button>
-                        <button data-nav-target="screen-map" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 transition-colors">
-                            <i class="fa-solid fa-map-location-dot w-5"></i> Map Spots
-                        </button>
-                        <button data-nav-target="screen-plan" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 transition-colors">
-                            <i class="fa-solid fa-calendar-days w-5"></i> Lunar Calendar
-                        </button>
-                        <button data-nav-target="screen-techniques" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 transition-colors">
-                            <i class="fa-solid fa-wand-magic-sparkles w-5"></i> Techniques
-                        </button>
-                        <button data-nav-target="screen-profile" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 transition-colors">
-                            <i class="fa-solid fa-user-gear w-5"></i> Profile &amp; Settings
-                        </button>
-                        <button data-nav-target="screen-log" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 transition-colors">
-                            <i class="fa-solid fa-book-journal-whills w-5"></i> Logbook
-                        </button>
-                    </nav>
+            <button id="header-avatar-btn" class="relative">
+                <div class="w-8 h-8 md:w-9 md:h-9 rounded-full overflow-hidden border border-glassBorder">
+                    <img id="header-avatar-img" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="User" class="w-full h-full object-cover">
                 </div>
+                <div class="absolute top-0 right-0 w-2.5 h-2.5 bg-accent rounded-full border-2 border-deep"></div>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar (Hidden by default) -->
+    <div id="sidebar" class="fixed inset-0 z-[60] transform -translate-x-full transition-transform duration-300 pointer-events-none">
+        <div id="sidebar-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-auto"></div>
+        <div class="absolute top-0 left-0 h-full w-[280px] md:w-[320px] bg-mystic border-r border-glassBorder shadow-2xl pointer-events-auto overflow-y-auto">
+            <div class="p-6 pt-10">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-12 h-12 rounded-full overflow-hidden bg-accent/20 flex items-center justify-center text-accent">
+                        <img id="sidebar-avatar-img" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="User" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 id="sidebar-name" class="font-serif text-lg">Alex River</h3>
+                        <p id="sidebar-meta" class="text-xs text-gray-400">Pisces • Spinning</p>
+                    </div>
+                </div>
+                <nav class="space-y-4">
+                    <button data-nav-target="screen-today" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl bg-accent/10 text-accent font-medium">
+                        <i class="fa-solid fa-house w-5"></i> Home
+                    </button>
+                    <button data-nav-target="screen-catalog" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 transition-colors">
+                        <i class="fa-solid fa-book-open w-5"></i> Fish Catalog
+                    </button>
+                    <button data-nav-target="screen-plan" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 transition-colors">
+                        <i class="fa-solid fa-calendar-days w-5"></i> Lunar Calendar
+                    </button>
+                    <button data-nav-target="screen-techniques" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 transition-colors">
+                        <i class="fa-solid fa-wand-magic-sparkles w-5"></i> Techniques
+                    </button>
+                    <button data-nav-target="screen-profile" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 transition-colors">
+                        <i class="fa-solid fa-user-gear w-5"></i> Profile &amp; Settings
+                    </button>
+                    <button data-nav-target="screen-log" class="sidebar-link flex items-center w-full text-left gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 transition-colors">
+                        <i class="fa-solid fa-book-journal-whills w-5"></i> Logbook
+                    </button>
+                </nav>
             </div>
         </div>
+    </div>
 
-        <!-- SCREENS WRAPPER -->
-        <main class="pt-20 pb-24 px-5 md:px-8 space-y-6 overflow-y-auto h-full scroll-smooth">
+    <!-- SCREENS WRAPPER -->
+    <main class="pt-20 pb-24 px-5 md:px-8 space-y-6 overflow-y-auto h-full scroll-smooth">
 
-            <!-- TODAY SCREEN -->
-            <section id="screen-today" class="app-screen space-y-6">
-                <!-- Today's Lunar Status -->
-                <section id="lunar-status" class="relative">
-                    <div class="glass-panel rounded-3xl p-6 md:p-7 text-center moon-glow relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"></div>
+        <!-- TODAY SCREEN -->
+        <section id="screen-today" class="app-screen space-y-6">
+            <!-- Today's Lunar Status -->
+            <section id="lunar-status" class="relative">
+                <div class="glass-panel rounded-3xl p-6 md:p-7 text-center moon-glow relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"></div>
 
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="text-xs font-medium tracking-wider text-gray-400 uppercase">Today's Moon</span>
-                            <div class="flex items-center gap-1 text-gold text-sm">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col items-center justify-center mb-4">
-                            <div class="w-32 h-32 md:w-36 md:h-36 relative mb-3">
-                                <img class="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/6dd96bd01a-099e91033940b0f5b435.png" alt="realistic waxing crescent moon glowing silver white on dark background">
-                            </div>
-                            <h2 class="text-2xl md:text-3xl font-serif text-white mb-1">Waxing Crescent</h2>
-                            <p class="text-accent text-sm font-medium">24% Illumination</p>
-                        </div>
-
-                        <p class="text-sm md:text-base text-gray-300 leading-relaxed italic border-t border-white/10 pt-4 mt-2">
-                            "The growing light activates predator fish. Excellent bite potential in shallow waters."
-                        </p>
-                    </div>
-                </section>
-
-                <!-- Energy of the Day -->
-                <section id="energy-day" class="grid grid-cols-2 gap-4">
-                    <div class="glass-panel rounded-2xl p-4 flex flex-col justify-between h-40">
-                        <div class="flex justify-between items-start">
-                            <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
-                                <i class="fa-solid fa-bolt"></i>
-                            </div>
-                            <span class="text-xs text-gray-400">Energy</span>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-medium text-white mb-1">Dynamic</h3>
-                            <p class="text-xs text-gray-400 leading-snug">Strong currents favor active lures today.</p>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-medium tracking-wider text-gray-400 uppercase">Today's Moon</span>
+                        <div class="flex items-center gap-1 text-gold text-sm">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
                         </div>
                     </div>
 
-                    <div class="glass-panel rounded-2xl p-4 flex flex-col justify-between h-40">
-                        <div class="flex justify-between items-start">
-                            <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
-                                <i class="fa-regular fa-clock"></i>
-                            </div>
-                            <span class="text-xs text-gray-400">Best Times</span>
+                    <div class="flex flex-col items-center justify-center mb-4">
+                        <div class="w-32 h-32 md:w-36 md:h-36 relative mb-3">
+                            <img class="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/6dd96bd01a-099e91033940b0f5b435.png" alt="realistic waxing crescent moon glowing silver white on dark background" />
                         </div>
-                        <div>
-                            <div class="mb-2">
-                                <div class="text-sm font-semibold text-white">04:30 - 08:00</div>
-                                <div class="text-[10px] text-gray-400">Morning Peak</div>
-                            </div>
-                            <div>
-                                <div class="text-sm font-semibold text-white">18:00 - 21:00</div>
-                                <div class="text-[10px] text-gray-400">Evening Peak</div>
-                            </div>
-                        </div>
+                        <h2 class="text-2xl md:text-3xl font-serif text-white mb-1">Waxing Crescent</h2>
+                        <p class="text-accent text-sm font-medium">24% Illumination</p>
                     </div>
-                </section>
 
-                <!-- Angler Horoscope -->
-                <section id="horoscope" class="glass-panel rounded-2xl p-5 border-l-4 border-l-purple-500">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">
-                            <i class="fa-solid fa-fish-fins"></i>
-                        </div>
-                        <h3 class="font-serif text-lg text-white">Pisces Forecast</h3>
-                    </div>
-                    <p class="text-sm text-gray-300 mb-3 leading-relaxed" id="horoscope-text">
-                        Intuition is your strongest tackle today. Trust your gut when choosing a spot, even if the fish finder is quiet.
+                    <p class="text-sm md:text-base text-gray-300 leading-relaxed italic border-t border-white/10 pt-4 mt-2">
+                        "The growing light activates predator fish. Excellent bite potential in shallow waters."
                     </p>
-                    <div class="bg-purple-500/10 rounded-lg px-3 py-2 flex items-center gap-2">
-                        <i class="fa-solid fa-gem text-purple-400 text-xs"></i>
-                        <span id="horoscope-tip" class="text-xs text-purple-200">Lucky tip: Use blue lures near vegetation.</span>
-                    </div>
-                </section>
-
-                <!-- Recommended Fish Chart -->
-                <section id="fish-recommendation">
-                    <div class="flex justify-between items-center mb-4 px-1">
-                        <h3 class="font-serif text-lg">Target Species</h3>
-                        <button data-nav-target="screen-catalog" class="text-xs text-accent hover:underline">View Catalog</button>
-                    </div>
-
-                    <div class="space-y-3">
-                        <!-- Fish Card 1 -->
-                        <div class="glass-panel rounded-xl p-3 flex items-center gap-4 relative overflow-hidden group active:scale-[0.98] transition-transform">
-                            <div class="absolute right-0 top-0 bottom-0 w-1 bg-green-500"></div>
-                            <div class="w-16 h-16 rounded-lg bg-black/30 overflow-hidden flex-shrink-0">
-                                <img class="w-full h-full object-contain" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/a7721b04ba-bcae9591241cdd5c063d.png" alt="Northern Pike fish side view realistic illustration">
-                            </div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-center mb-1">
-                                    <h4 class="font-medium text-white">Northern Pike</h4>
-                                    <span class="px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 text-[10px] font-bold uppercase tracking-wide">High Chance</span>
-                                </div>
-                                <div class="flex items-center gap-3 text-xs text-gray-400">
-                                    <span><i class="fa-solid fa-water text-blue-400 mr-1"></i> Shallow</span>
-                                    <span><i class="fa-solid fa-utensils text-orange-400 mr-1"></i> Aggressive</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Fish Card 2 -->
-                        <div class="glass-panel rounded-xl p-3 flex items-center gap-4 relative overflow-hidden group active:scale-[0.98] transition-transform">
-                            <div class="absolute right-0 top-0 bottom-0 w-1 bg-yellow-500"></div>
-                            <div class="w-16 h-16 rounded-lg bg-black/30 overflow-hidden flex-shrink-0">
-                                <img class="w-full h-full object-contain" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/5e7029920f-ad3160388945edebcf0e.png" alt="European Perch fish side view realistic illustration">
-                            </div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-center mb-1">
-                                    <h4 class="font-medium text-white">Perch</h4>
-                                    <span class="px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-bold uppercase tracking-wide">Medium</span>
-                                </div>
-                                <div class="flex items-center gap-3 text-xs text-gray-400">
-                                    <span><i class="fa-solid fa-water text-blue-400 mr-1"></i> Drop-offs</span>
-                                    <span><i class="fa-solid fa-users text-orange-400 mr-1"></i> Schooling</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Gear Suggestions -->
-                <section id="gear-suggestions" class="glass-panel rounded-2xl p-5">
-                    <h3 class="font-serif text-lg mb-4">Mystic Tackle Box</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 mt-1">
-                                <i class="fa-solid fa-wand-sparkles text-xs"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-medium text-white">Rod &amp; Rig</h4>
-                                <p class="text-xs text-gray-400 mt-1">Fast action spinning rod. Use a fluorocarbon leader (0.30mm) for invisible presentation in clear water.</p>
-                            </div>
-                        </div>
-                        <div class="w-full h-[1px] bg-white/5"></div>
-                        <div class="flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-400 mt-1">
-                                <i class="fa-solid fa-bugs text-xs"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-medium text-white">Lure of the Day</h4>
-                                <p class="text-xs text-gray-400 mt-1">Silver/Blue Spoon or Soft Plastic Minnow (3-4 inch). Bright colors work best with today's moon phase.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Probability Chart (Plotly) -->
-                <section id="activity-chart" class="glass-panel rounded-2xl p-4">
-                    <h3 class="font-serif text-sm text-gray-300 mb-2">Hourly Activity Forecast</h3>
-                    <div id="hourlyChart" class="h-[200px] w-full"></div>
-                </section>
-
-                <!-- Bottom Actions -->
-                <div class="grid grid-cols-2 gap-3 pt-2">
-                    <button data-nav-target="screen-map" class="bg-accent text-deep font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-white transition-colors">
-                        <i class="fa-solid fa-map"></i> Open Map
-                    </button>
-                    <button data-nav-target="screen-log" class="bg-white/10 text-white font-medium py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-white/20 transition-colors border border-white/10">
-                        <i class="fa-solid fa-pen-to-square"></i> Log Catch
-                    </button>
                 </div>
             </section>
 
-            <!-- MAP SCREEN -->
-            <section id="screen-map" class="app-screen hidden space-y-4">
-
-                <div class="glass-panel rounded-2xl p-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-sm text-gray-300">Nearby Waters (Demo)</span>
-                        <button id="generate-new-spots" class="text-xs text-accent hover:underline">Generate New Spots</button>
+            <!-- Energy of the Day -->
+            <section id="energy-day" class="grid grid-cols-2 gap-4">
+                <div class="glass-panel rounded-2xl p-4 flex flex-col justify-between h-40">
+                    <div class="flex justify-between items-start">
+                        <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <span class="text-xs text-gray-400">Energy</span>
                     </div>
-                    <div id="map-spots-list" class="space-y-3">
-                        <button class="w-full flex items-center justify-between bg-white/5 hover:bg-white/10 transition-colors rounded-xl px-3 py-2 text-left map-spot" data-spot="{&quot;name&quot;:&quot;River Bend&quot;,&quot;type&quot;:&quot;River&quot;,&quot;rating&quot;:&quot;High&quot;,&quot;tip&quot;:&quot;Walk-and-cast along the grassy banks, focus on current seams.&quot;,&quot;species&quot;:[&quot;Pike&quot;,&quot;Perch&quot;]}">
-                            <div>
-                                <div class="text-sm font-medium">River Bend</div>
-                                <div class="text-[10px] text-gray-400">River • Shallow + current</div>
-                            </div>
-                            <span class="px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 text-[10px] font-bold uppercase">High</span>
-                        </button>
-                        <button class="w-full flex items-center justify-between bg-white/5 hover:bg-white/10 transition-colors rounded-xl px-3 py-2 text-left map-spot" data-spot="{&quot;name&quot;:&quot;Moonlight Lake&quot;,&quot;type&quot;:&quot;Lake&quot;,&quot;rating&quot;:&quot;Medium&quot;,&quot;tip&quot;:&quot;Fish the drop-offs with slow presentations as light fades.&quot;,&quot;species&quot;:[&quot;Perch&quot;,&quot;Bream&quot;]}">
-                            <div>
-                                <div class="text-sm font-medium">Moonlight Lake</div>
-                                <div class="text-[10px] text-gray-400">Lake • Clear &amp; calm</div>
-                            </div>
-                            <span class="px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-bold uppercase">Medium</span>
-                        </button>
+                    <div>
+                        <h3 class="text-lg font-medium text-white mb-1">Dynamic</h3>
+                        <p class="text-xs text-gray-400 leading-snug">Strong currents favor active lures today.</p>
                     </div>
                 </div>
 
-                <!-- Spot Detail Sheet -->
-                <div id="spot-detail" class="hidden glass-panel rounded-2xl p-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 id="spot-name" class="font-serif text-lg"></h3>
-                        <span id="spot-rating-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide"></span>
+                <div class="glass-panel rounded-2xl p-4 flex flex-col justify-between h-40">
+                    <div class="flex justify-between items-start">
+                        <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        <span class="text-xs text-gray-400">Best Times</span>
                     </div>
-                    <p id="spot-meta" class="text-xs text-gray-400 mb-2"></p>
-                    <p id="spot-tip" class="text-sm text-gray-200 mb-3"></p>
-                    <div id="spot-species" class="flex flex-wrap gap-2 text-[11px]"></div>
-                </div>
-            </section>
-
-            <!-- PLAN / CALENDAR SCREEN -->
-            <section id="screen-plan" class="app-screen hidden space-y-4">
-                <h2 class="font-serif text-xl mt-2">Lunar Calendar</h2>
-                <div class="glass-panel rounded-2xl p-4 md:p-5">
-                    <div class="flex justify-between items-center mb-3">
+                    <div>
+                        <div class="mb-2">
+                            <div class="text-sm font-semibold text-white">04:30 - 08:00</div>
+                            <div class="text-[10px] text-gray-400">Morning Peak</div>
+                        </div>
                         <div>
-                            <div id="calendar-month-label" class="font-medium"></div>
-                            <div class="text-[10px] text-gray-400">Moon, energy &amp; bite forecast</div>
+                            <div class="text-sm font-semibold text-white">18:00 - 21:00</div>
+                            <div class="text-[10px] text-gray-400">Evening Peak</div>
                         </div>
-                    </div>
-                    <div class="grid grid-cols-7 text-center text-[10px] text-gray-400 mb-1">
-                        <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
-                    </div>
-                    <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-center"></div>
-                </div>
-
-                <div id="calendar-day-detail" class="glass-panel rounded-2xl p-4 md:p-5 hidden">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 id="day-detail-date" class="font-serif text-lg"></h3>
-                        <span id="day-detail-rating" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide"></span>
-                    </div>
-                    <p id="day-detail-moon" class="text-xs text-gray-300 mb-1"></p>
-                    <p id="day-detail-energy" class="text-xs text-gray-300 mb-3"></p>
-
-                    <!-- Fishing Conditions (generated) -->
-                    <div class="mb-3 border-t border-white/10 pt-3">
-                        <div class="flex items-center gap-2 mb-1">
-                            <i class="fa-solid fa-wand-magic-sparkles text-accent text-xs"></i>
-                            <span class="text-xs font-semibold text-gray-200">Fishing Conditions</span>
-                        </div>
-                        <p id="day-detail-conditions" class="text-xs text-gray-200 mb-1"></p>
-                        <p id="day-detail-gear" class="text-xs text-gray-300 mb-1"></p>
-                        <p id="day-detail-lures" class="text-xs text-gray-300 mb-1"></p>
-                        <p id="day-detail-strategy" class="text-xs text-gray-300 italic"></p>
-                    </div>
-
-                    <div class="mb-2">
-                        <div class="text-[11px] text-gray-400 mb-1">Top Species</div>
-                        <div id="day-detail-species" class="flex flex-wrap gap-2 text-[11px]"></div>
-                    </div>
-                    <p id="day-detail-tip" class="text-xs text-gray-200 italic mb-3"></p>
-
-                    <!-- Calendar events -->
-                    <div class="mt-3 border-t border-white/10 pt-3 space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-semibold text-gray-200">Day Events</span>
-                        </div>
-                        <form id="calendar-event-form" class="space-y-2 text-xs">
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="block mb-1 text-gray-300">Title</label>
-                                    <input name="title" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="Morning session">
-                                </div>
-                                <div>
-                                    <label class="block mb-1 text-gray-300">Time</label>
-                                    <input name="time" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="05:00-09:00">
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block mb-1 text-gray-300">Note</label>
-                                <textarea name="note" rows="2" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="Target pike on shallow weed edges."></textarea>
-                            </div>
-                            <button type="submit" class="w-full bg-accent text-deep font-semibold py-2 rounded-lg hover:bg-white transition-colors">Save Event</button>
-                        </form>
-                        <div id="calendar-events-list" class="space-y-2 max-h-40 overflow-y-auto text-xs">
-                            <!-- events -->
-                        </div>
-                    </div>
-
-                    <!-- Generate catch from this day -->
-                    <div class="mt-3 border-t border-white/10 pt-3">
-                        <button id="calendar-generate-catch" class="w-full bg-white/10 border border-white/20 hover:bg-white/20 text-xs py-2 rounded-lg flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-fish"></i>
-                            Generate Catch Template from Day &amp; Horoscope
-                        </button>
                     </div>
                 </div>
             </section>
 
-            <!-- FISH CATALOG SCREEN -->
-            <section id="screen-catalog" class="app-screen hidden space-y-4">
-                <h2 class="font-serif text-xl mt-2">Fish Catalog</h2>
-                <div class="glass-panel rounded-2xl p-4">
-                    <div class="flex justify-between mb-2">
-                        <span class="text-sm text-gray-300">Species</span>
-                        <span class="text-[10px] text-gray-500">Demo data</span>
+            <!-- Angler Horoscope -->
+            <section id="horoscope" class="glass-panel rounded-2xl p-5 border-l-4 border-l-purple-500">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">
+                        <i class="fa-solid fa-fish-fins"></i>
                     </div>
-                    <div id="fish-list" class="space-y-2">
+                    <h3 class="font-serif text-lg text-white">Pisces Forecast</h3>
+                </div>
+                <p class="text-sm text-gray-300 mb-3 leading-relaxed" id="horoscope-text">
+                    Intuition is your strongest tackle today. Trust your gut when choosing a spot, even if the fish finder is quiet.
+                </p>
+                <div class="bg-purple-500/10 rounded-lg px-3 py-2 flex items-center gap-2">
+                    <i class="fa-solid fa-gem text-purple-400 text-xs"></i>
+                    <span id="horoscope-tip" class="text-xs text-purple-200">Lucky tip: Use blue lures near vegetation.</span>
+                </div>
+            </section>
+
+            <!-- Recommended Fish Chart -->
+            <section id="fish-recommendation">
+                <div class="flex justify-between items-center mb-4 px-1">
+                    <h3 class="font-serif text-lg">Target Species</h3>
+                    <button data-nav-target="screen-catalog" class="text-xs text-accent hover:underline">View Catalog</button>
+                </div>
+
+                <div class="space-y-3">
+                    <!-- Fish Card 1 -->
+                    <div class="glass-panel rounded-xl p-3 flex items-center gap-4 relative overflow-hidden group active:scale-[0.98] transition-transform">
+                        <div class="absolute right-0 top-0 bottom-0 w-1 bg-green-500"></div>
+                        <div class="w-16 h-16 rounded-lg bg-black/30 overflow-hidden flex-shrink-0">
+                            <img class="w-full h-full object-contain" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/a7721b04ba-bcae9591241cdd5c063d.png" alt="Northern Pike fish side view realistic illustration" />
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center mb-1">
+                                <h4 class="font-medium text-white">Northern Pike</h4>
+                                <span class="px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 text-[10px] font-bold uppercase tracking-wide">High Chance</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-xs text-gray-400">
+                                <span><i class="fa-solid fa-water text-blue-400 mr-1"></i> Shallow</span>
+                                <span><i class="fa-solid fa-utensils text-orange-400 mr-1"></i> Aggressive</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fish Card 2 -->
+                    <div class="glass-panel rounded-xl p-3 flex items-center gap-4 relative overflow-hidden group active:scale-[0.98] transition-transform">
+                        <div class="absolute right-0 top-0 bottom-0 w-1 bg-yellow-500"></div>
+                        <div class="w-16 h-16 rounded-lg bg-black/30 overflow-hidden flex-shrink-0">
+                            <img class="w-full h-full object-contain" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/5e7029920f-ad3160388945edebcf0e.png" alt="European Perch fish side view realistic illustration" />
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center mb-1">
+                                <h4 class="font-medium text-white">Perch</h4>
+                                <span class="px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-bold uppercase tracking-wide">Medium</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-xs text-gray-400">
+                                <span><i class="fa-solid fa-water text-blue-400 mr-1"></i> Drop-offs</span>
+                                <span><i class="fa-solid fa-users text-orange-400 mr-1"></i> Schooling</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gear Suggestions -->
+            <section id="gear-suggestions" class="glass-panel rounded-2xl p-5">
+                <h3 class="font-serif text-lg mb-4">Mystic Tackle Box</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 mt-1">
+                            <i class="fa-solid fa-wand-sparkles text-xs"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white">Rod &amp; Rig</h4>
+                            <p class="text-xs text-gray-400 mt-1">Fast action spinning rod. Use a fluorocarbon leader (0.30mm) for invisible presentation in clear water.</p>
+                        </div>
+                    </div>
+                    <div class="w-full h-[1px] bg-white/5"></div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-400 mt-1">
+                            <i class="fa-solid fa-bugs text-xs"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white">Lure of the Day</h4>
+                            <p class="text-xs text-gray-400 mt-1">Silver/Blue Spoon or Soft Plastic Minnow (3-4 inch). Bright colors work best with today's moon phase.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Probability Chart (Plotly) -->
+            <section id="activity-chart" class="glass-panel rounded-2xl p-4">
+                <h3 class="font-serif text-sm text-gray-300 mb-2">Hourly Activity Forecast</h3>
+                <div id="hourlyChart" class="h-[200px] w-full"></div>
+            </section>
+
+            <!-- Bottom Actions -->
+            <div class="grid grid-cols-2 gap-3 pt-2">
+                <button data-nav-target="screen-plan" class="bg-accent text-deep font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-white transition-colors">
+                    <i class="fa-solid fa-calendar"></i> Open Calendar
+                </button>
+                <button data-nav-target="screen-log" class="bg-white/10 text-white font-medium py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-white/20 transition-colors border border-white/10">
+                    <i class="fa-solid fa-pen-to-square"></i> Log Catch
+                </button>
+            </div>
+        </section>
+
+        <!-- PLAN / CALENDAR SCREEN -->
+        <section id="screen-plan" class="app-screen hidden space-y-4">
+            <h2 class="font-serif text-xl mt-2">Lunar Calendar</h2>
+            <div class="glass-panel rounded-2xl p-4">
+                <p class="text-sm text-gray-300 mb-2">Lunar calendars influence fishing by affecting fish behavior through tidal movements, moonlight, and energy cycles. New moons bring calmer waters and finesse fishing, while full moons increase activity for nocturnal species. Waxing moons boost predator aggression, waning moons favor bottom feeders.</p>
+            </div>
+            <div class="glass-panel rounded-2xl p-4 md:p-5">
+                <div class="flex justify-between items-center mb-3">
+                    <div>
+                        <div id="calendar-month-label" class="font-medium"></div>
+                        <div class="text-[10px] text-gray-400">Moon, energy &amp; bite forecast</div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-7 text-center text-[10px] text-gray-400 mb-1">
+                    <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+                </div>
+                <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-center"></div>
+            </div>
+
+            <!-- Weekly Fishing Probability -->
+            <div class="glass-panel rounded-2xl p-4">
+                <h3 class="font-serif text-lg mb-3">Weekly Fishing Probability</h3>
+                <p class="text-xs text-gray-300 mb-2">Based on lunar phases and historical data, here's the likelihood of good fishing days by weekday.</p>
+                <div id="weekly-probability" class="space-y-2">
+                    <!-- Generated by JS -->
+                </div>
+            </div>
+
+            <div id="calendar-day-detail" class="glass-panel rounded-2xl p-4 md:p-5 hidden">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 id="day-detail-date" class="font-serif text-lg"></h3>
+                    <span id="day-detail-rating" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide"></span>
+                </div>
+                <p id="day-detail-moon" class="text-xs text-gray-300 mb-1"></p>
+                <p id="day-detail-energy" class="text-xs text-gray-300 mb-3"></p>
+
+                <!-- Fishing Conditions (generated) -->
+                <div class="mb-3 border-t border-white/10 pt-3">
+                    <div class="flex items-center gap-2 mb-1">
+                        <i class="fa-solid fa-wand-magic-sparkles text-accent text-xs"></i>
+                        <span class="text-xs font-semibold text-gray-200">Fishing Conditions</span>
+                    </div>
+                    <p id="day-detail-conditions" class="text-xs text-gray-200 mb-1"></p>
+                    <p id="day-detail-gear" class="text-xs text-gray-300 mb-1"></p>
+                    <p id="day-detail-lures" class="text-xs text-gray-300 mb-1"></p>
+                    <p id="day-detail-strategy" class="text-xs text-gray-300 italic"></p>
+                </div>
+
+                <div class="mb-2">
+                    <div class="text-[11px] text-gray-400 mb-1">Top Species</div>
+                    <div id="day-detail-species" class="flex flex-wrap gap-2 text-[11px]"></div>
+                </div>
+                <p id="day-detail-tip" class="text-xs text-gray-200 italic mb-3"></p>
+
+                <!-- Calendar events -->
+                <div class="mt-3 border-t border-white/10 pt-3 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-gray-200">Day Events</span>
+                    </div>
+                    <form id="calendar-event-form" class="space-y-2 text-xs">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block mb-1 text-gray-300">Title</label>
+                                <input name="title" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="Morning session">
+                            </div>
+                            <div>
+                                <label class="block mb-1 text-gray-300">Time</label>
+                                <input name="time" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="05:00-09:00">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block mb-1 text-gray-300">Note</label>
+                            <textarea name="note" rows="2" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="Target pike on shallow weed edges."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-accent text-deep font-semibold py-2 rounded-lg hover:bg-white transition-colors">Save Event</button>
+                    </form>
+                    <div id="calendar-events-list" class="space-y-2 max-h-40 overflow-y-auto text-xs">
+                        <!-- events -->
+                    </div>
+                </div>
+
+                <!-- Generate catch from this day -->
+                <div class="mt-3 border-t border-white/10 pt-3">
+                    <button id="calendar-generate-catch" class="w-full bg-white/10 border border-white/20 hover:bg-white/20 text-xs py-2 rounded-lg flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-fish"></i>
+                        Generate Catch Template from Day &amp; Horoscope
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FISH CATALOG SCREEN -->
+        <section id="screen-catalog" class="app-screen hidden space-y-4">
+            <h2 class="font-serif text-xl mt-2">Fish Catalog</h2>
+            <div class="glass-panel rounded-2xl p-4">
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm text-gray-300">Species</span>
+                    <span class="text-[10px] text-gray-500">Demo data</span>
+                </div>
+                <div id="fish-list" class="space-y-2">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+
+            <div id="fish-detail" class="glass-panel rounded-2xl p-4 hidden">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 id="fish-detail-name" class="font-serif text-lg"></h3>
+                    <span id="fish-detail-rating" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide"></span>
+                </div>
+                <p id="fish-detail-moon" class="text-xs text-gray-300 mb-1"></p>
+                <p id="fish-detail-times" class="text-xs text-gray-300 mb-1"></p>
+                <p id="fish-detail-locations" class="text-xs text-gray-300 mb-2"></p>
+                <p id="fish-detail-tackle" class="text-xs text-gray-200 mb-1"></p>
+                <p id="fish-detail-lures" class="text-xs text-gray-200"></p>
+            </div>
+        </section>
+
+        <!-- TECHNIQUES SCREEN -->
+        <section id="screen-techniques" class="app-screen hidden space-y-4">
+            <h2 class="font-serif text-xl mt-2">Techniques</h2>
+            <div class="glass-panel rounded-2xl p-4 space-y-3">
+                <div class="text-xs text-gray-300 mb-2">Scenario based guides (demo):</div>
+                <div class="space-y-3">
+                    <div class="glass-panel rounded-xl p-3 bg-white/5">
+                        <div class="flex items-center gap-2 mb-1">
+                            <i class="fa-solid fa-sun text-yellow-400 text-xs"></i>
+                            <span class="text-sm font-medium">Morning pike on a waxing moon</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 mb-1">Target shallow weedy bays as the light increases. Use fast retrieves with flashy spoons.</p>
+                        <ul class="text-[11px] text-gray-400 list-disc list-inside">
+                            <li>Focus 04:30–08:00.</li>
+                            <li>Change lure if no strike in 15 minutes.</li>
+                        </ul>
+                    </div>
+                    <div class="glass-panel rounded-xl p-3 bg-white/5">
+                        <div class="flex items-center gap-2 mb-1">
+                            <i class="fa-solid fa-moon text-accent text-xs"></i>
+                            <span class="text-sm font-medium">Night catfish on a waning moon</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 mb-1">Fish deep holes with strong scent baits. Let the bait sit and be patient.</p>
+                        <ul class="text-[11px] text-gray-400 list-disc list-inside">
+                            <li>Fish 22:00–03:00.</li>
+                            <li>Check bait every 20–30 minutes.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFILE SCREEN -->
+        <section id="screen-profile" class="app-screen hidden space-y-4">
+            <h2 class="font-serif text-xl mt-2">Profile &amp; Settings</h2>
+            <div class="glass-panel rounded-2xl p-4 space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-14 h-14 rounded-full overflow-hidden border border-glassBorder">
+                        <img id="profile-avatar-img" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="User" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div id="profile-name-display" class="font-serif text-lg">Alex River</div>
+                                <div id="profile-meta-display" class="text-xs text-gray-400">Pisces • Spinning</div>
+                            </div>
+                        </div>
+                        <button id="change-avatar-btn" class="mt-2 text-xs text-accent hover:underline">Change Avatar</button>
+                    </div>
+                </div>
+                <div class="h-px bg-white/10"></div>
+                <form id="profile-form" class="space-y-3 text-xs">
+                    <div>
+                        <label class="block mb-1 text-gray-300">Name</label>
+                        <input id="profile-name" type="text" class="w-full rounded-lg bg-black/30 border border-white/10 px-3 py-2 text-xs focus:outline-none focus:border-accent" placeholder="Your name">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block mb-1 text-gray-300">Zodiac Sign</label>
+                            <input id="profile-zodiac" type="text" class="w-full rounded-lg bg-black/30 border border-white/10 px-3 py-2 text-xs focus:outline-none focus:border-accent" placeholder="Pisces">
+                        </div>
+                        <div>
+                            <label class="block mb-1 text-gray-300">Fishing Style</label>
+                            <input id="profile-style" type="text" class="w-full rounded-lg bg-black/30 border border-white/10 px-3 py-2 text-xs focus:outline-none focus:border-accent" placeholder="Spinning">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full mt-2 bg-accent text-deep font-semibold py-2 rounded-lg hover:bg-white transition-colors">Save Profile</button>
+                </form>
+            </div>
+
+            <div class="glass-panel rounded-2xl p-4 text-xs space-y-3">
+                <div class="flex items-center gap-2 mb-1">
+                    <i class="fa-solid fa-bell text-accent text-sm"></i>
+                    <span class="font-medium text-sm">Notifications (demo)</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span>Best days for predator fish</span>
+                    <label class="inline-flex items-center cursor-pointer relative">
+                        <input type="checkbox" checked="" class="sr-only peer">
+                        <div class="w-9 h-5 bg-gray-600 rounded-full peer peer-checked:bg-accent"></div>
+                        <div class="absolute top-[2px] left-[2px] w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-4"></div>
+                    </label>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span>Remind 1 day before top lunar day</span>
+                    <label class="inline-flex items-center cursor-pointer relative">
+                        <input type="checkbox" checked="" class="sr-only peer">
+                        <div class="w-9 h-5 bg-gray-600 rounded-full peer peer-checked:bg-accent"></div>
+                        <div class="absolute top-[2px] left-[2px] w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-4"></div>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOGBOOK / CATCHES SCREEN -->
+        <section id="screen-log" class="app-screen hidden space-y-4">
+            <h2 class="font-serif text-xl mt-2">Logbook</h2>
+
+            <!-- Tabs -->
+            <div class="flex text-xs mb-1">
+                <button id="log-tab-catches" class="flex-1 py-2 rounded-l-xl bg-accent text-deep font-semibold">Catches</button>
+                <button id="log-tab-analytics" class="flex-1 py-2 rounded-r-xl bg-white/10 text-gray-300">Analytics</button>
+            </div>
+
+            <!-- CATCH FORM + LIST -->
+            <div id="log-catches-panel" class="space-y-3">
+                <div class="glass-panel rounded-2xl p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-sm text-gray-200">Add a Catch</span>
+                        <i class="fa-solid fa-plus text-accent text-xs"></i>
+                    </div>
+                    <form id="catch-form" class="space-y-2 text-xs">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block mb-1 text-gray-300">Species</label>
+                                <input name="species" required="" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="Pike">
+                            </div>
+                            <div>
+                                <label class="block mb-1 text-gray-300">Location</label>
+                                <input name="location" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="River Bend">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block mb-1 text-gray-300">Length (cm)</label>
+                                <input name="length" type="number" min="0" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="75">
+                            </div>
+                            <div>
+                                <label class="block mb-1 text-gray-300">Weight (kg)</label>
+                                <input name="weight" type="number" step="0.01" min="0" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="3.2">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block mb-1 text-gray-300">Date &amp; Time</label>
+                                <input name="datetime" type="datetime-local" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent">
+                            </div>
+                            <div>
+                                <label class="block mb-1 text-gray-300">Photo URL</label>
+                                <input name="photo" type="url" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="https://">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block mb-1 text-gray-300">Notes</label>
+                            <textarea name="notes" rows="2" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="Lure, depth, weather..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full mt-1 bg-accent text-deep font-semibold py-2 rounded-lg hover:bg-white transition-colors">Save Catch</button>
+                    </form>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-gray-200">Your Catches</span>
+                        <button id="clear-catches" class="text-[10px] text-red-400 hover:underline">Clear</button>
+                    </div>
+                    <div id="catch-list" class="space-y-2 text-xs max-h-72 md:max-h-80 overflow-y-auto">
+                        <!-- Filled by JS -->
+                    </div>
+                    <div id="catch-empty" class="text-[11px] text-gray-500 text-center py-4 hidden">
+                        No catches yet. Log your first fish to unlock insights.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ANALYTICS PANEL -->
+            <div id="log-analytics-panel" class="hidden space-y-3">
+                <div class="glass-panel rounded-2xl p-4 text-xs">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-chart-line text-accent text-sm"></i>
+                        <span class="font-medium text-sm">Summary</span>
+                    </div>
+                    <div id="analytics-summary" class="grid grid-cols-3 gap-2 text-center">
                         <!-- Filled by JS -->
                     </div>
                 </div>
 
-                <div id="fish-detail" class="glass-panel rounded-2xl p-4 hidden">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 id="fish-detail-name" class="font-serif text-lg"></h3>
-                        <span id="fish-detail-rating" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide"></span>
+                <div class="glass-panel rounded-2xl p-4 text-xs">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-fish text-accent text-sm"></i>
+                        <span class="font-medium text-sm">Species Distribution</span>
                     </div>
-                    <p id="fish-detail-moon" class="text-xs text-gray-300 mb-1"></p>
-                    <p id="fish-detail-times" class="text-xs text-gray-300 mb-1"></p>
-                    <p id="fish-detail-locations" class="text-xs text-gray-300 mb-2"></p>
-                    <p id="fish-detail-tackle" class="text-xs text-gray-200 mb-1"></p>
-                    <p id="fish-detail-lures" class="text-xs text-gray-200"></p>
-                </div>
-            </section>
-
-            <!-- TECHNIQUES SCREEN -->
-            <section id="screen-techniques" class="app-screen hidden space-y-4">
-                <h2 class="font-serif text-xl mt-2">Techniques</h2>
-                <div class="glass-panel rounded-2xl p-4 space-y-3">
-                    <div class="text-xs text-gray-300 mb-2">Scenario based guides (demo):</div>
-                    <div class="space-y-3">
-                        <div class="glass-panel rounded-xl p-3 bg-white/5">
-                            <div class="flex items-center gap-2 mb-1">
-                                <i class="fa-solid fa-sun text-yellow-400 text-xs"></i>
-                                <span class="text-sm font-medium">Morning pike on a waxing moon</span>
-                            </div>
-                            <p class="text-[11px] text-gray-300 mb-1">Target shallow weedy bays as the light increases. Use fast retrieves with flashy spoons.</p>
-                            <ul class="text-[11px] text-gray-400 list-disc list-inside">
-                                <li>Focus 04:30–08:00.</li>
-                                <li>Change lure if no strike in 15 minutes.</li>
-                            </ul>
-                        </div>
-                        <div class="glass-panel rounded-xl p-3 bg-white/5">
-                            <div class="flex items-center gap-2 mb-1">
-                                <i class="fa-solid fa-moon text-accent text-xs"></i>
-                                <span class="text-sm font-medium">Night catfish on a waning moon</span>
-                            </div>
-                            <p class="text-[11px] text-gray-300 mb-1">Fish deep holes with strong scent baits. Let the bait sit and be patient.</p>
-                            <ul class="text-[11px] text-gray-400 list-disc list-inside">
-                                <li>Fish 22:00–03:00.</li>
-                                <li>Check bait every 20–30 minutes.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PROFILE SCREEN -->
-            <section id="screen-profile" class="app-screen hidden space-y-4">
-                <h2 class="font-serif text-xl mt-2">Profile &amp; Settings</h2>
-                <div class="glass-panel rounded-2xl p-4 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-14 h-14 rounded-full overflow-hidden border border-glassBorder">
-                            <img id="profile-avatar-img" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="User" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <div id="profile-name-display" class="font-serif text-lg">Alex River</div>
-                                    <div id="profile-meta-display" class="text-xs text-gray-400">Pisces • Spinning</div>
-                                </div>
-                            </div>
-                            <button id="change-avatar-btn" class="mt-2 text-xs text-accent hover:underline">Change Avatar</button>
-                        </div>
-                    </div>
-                    <div class="h-px bg-white/10"></div>
-                    <form id="profile-form" class="space-y-3 text-xs">
-                        <div>
-                            <label class="block mb-1 text-gray-300">Name</label>
-                            <input id="profile-name" type="text" class="w-full rounded-lg bg-black/30 border border-white/10 px-3 py-2 text-xs focus:outline-none focus:border-accent" placeholder="Your name">
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block mb-1 text-gray-300">Zodiac Sign</label>
-                                <input id="profile-zodiac" type="text" class="w-full rounded-lg bg-black/30 border border-white/10 px-3 py-2 text-xs focus:outline-none focus:border-accent" placeholder="Pisces">
-                            </div>
-                            <div>
-                                <label class="block mb-1 text-gray-300">Fishing Style</label>
-                                <input id="profile-style" type="text" class="w-full rounded-lg bg-black/30 border border-white/10 px-3 py-2 text-xs focus:outline-none focus:border-accent" placeholder="Spinning">
-                            </div>
-                        </div>
-                        <button type="submit" class="w-full mt-2 bg-accent text-deep font-semibold py-2 rounded-lg hover:bg-white transition-colors">Save Profile</button>
-                    </form>
-                </div>
-
-                <div class="glass-panel rounded-2xl p-4 text-xs space-y-3">
-                    <div class="flex items-center gap-2 mb-1">
-                        <i class="fa-solid fa-bell text-accent text-sm"></i>
-                        <span class="font-medium text-sm">Notifications (demo)</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span>Best days for predator fish</span>
-                        <label class="inline-flex items-center cursor-pointer relative">
-                            <input type="checkbox" checked="" class="sr-only peer">
-                            <div class="w-9 h-5 bg-gray-600 rounded-full peer peer-checked:bg-accent"></div>
-                            <div class="absolute top-[2px] left-[2px] w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-4"></div>
-                        </label>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span>Remind 1 day before top lunar day</span>
-                        <label class="inline-flex items-center cursor-pointer relative">
-                            <input type="checkbox" checked="" class="sr-only peer">
-                            <div class="w-9 h-5 bg-gray-600 rounded-full peer peer-checked:bg-accent"></div>
-                            <div class="absolute top-[2px] left-[2px] w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-4"></div>
-                        </label>
-                    </div>
-                </div>
-            </section>
-
-            <!-- LOGBOOK / CATCHES SCREEN -->
-            <section id="screen-log" class="app-screen hidden space-y-4">
-                <h2 class="font-serif text-xl mt-2">Logbook</h2>
-
-                <!-- Tabs -->
-                <div class="flex text-xs mb-1">
-                    <button id="log-tab-catches" class="flex-1 py-2 rounded-l-xl bg-accent text-deep font-semibold">Catches</button>
-                    <button id="log-tab-analytics" class="flex-1 py-2 rounded-r-xl bg-white/10 text-gray-300">Analytics</button>
-                </div>
-
-                <!-- CATCH FORM + LIST -->
-                <div id="log-catches-panel" class="space-y-3">
-                    <div class="glass-panel rounded-2xl p-4">
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="text-sm text-gray-200">Add a Catch</span>
-                            <i class="fa-solid fa-plus text-accent text-xs"></i>
-                        </div>
-                        <form id="catch-form" class="space-y-2 text-xs">
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="block mb-1 text-gray-300">Species</label>
-                                    <input name="species" required="" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="Pike">
-                                </div>
-                                <div>
-                                    <label class="block mb-1 text-gray-300">Location</label>
-                                    <input name="location" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="River Bend">
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="block mb-1 text-gray-300">Length (cm)</label>
-                                    <input name="length" type="number" min="0" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="75">
-                                </div>
-                                <div>
-                                    <label class="block mb-1 text-gray-300">Weight (kg)</label>
-                                    <input name="weight" type="number" step="0.01" min="0" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="3.2">
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="block mb-1 text-gray-300">Date &amp; Time</label>
-                                    <input name="datetime" type="datetime-local" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent">
-                                </div>
-                                <div>
-                                    <label class="block mb-1 text-gray-300">Photo URL</label>
-                                    <input name="photo" type="url" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="https://">
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block mb-1 text-gray-300">Notes</label>
-                                <textarea name="notes" rows="2" class="w-full rounded-lg bg-black/30 border border-white/10 px-2 py-1.5 focus:outline-none focus:border-accent" placeholder="Lure, depth, weather..."></textarea>
-                            </div>
-                            <button type="submit" class="w-full mt-1 bg-accent text-deep font-semibold py-2 rounded-lg hover:bg-white transition-colors">Save Catch</button>
-                        </form>
-                    </div>
-
-                    <div class="glass-panel rounded-2xl p-4">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-sm text-gray-200">Your Catches</span>
-                            <button id="clear-catches" class="text-[10px] text-red-400 hover:underline">Clear</button>
-                        </div>
-                        <div id="catch-list" class="space-y-2 text-xs max-h-72 md:max-h-80 overflow-y-auto">
-                            <!-- Filled by JS -->
-                        </div>
-                        <div id="catch-empty" class="text-[11px] text-gray-500 text-center py-4 hidden">
-                            No catches yet. Log your first fish to unlock insights.
-                        </div>
+                    <div id="analytics-species-chart" class="h-[200px] w-full mb-2"></div>
+                    <div id="analytics-species" class="space-y-1">
+                        <!-- Filled by JS as text rows -->
                     </div>
                 </div>
 
-                <!-- ANALYTICS PANEL -->
-                <div id="log-analytics-panel" class="hidden space-y-3">
-                    <div class="glass-panel rounded-2xl p-4 text-xs">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i class="fa-solid fa-chart-line text-accent text-sm"></i>
-                            <span class="font-medium text-sm">Summary</span>
-                        </div>
-                        <div id="analytics-summary" class="grid grid-cols-3 gap-2 text-center">
-                            <!-- Filled by JS -->
-                        </div>
+                <div class="glass-panel rounded-2xl p-4 text-xs">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-calendar text-accent text-sm"></i>
+                        <span class="font-medium text-sm">Catches by Day (Weight)</span>
                     </div>
-
-                    <div class="glass-panel rounded-2xl p-4 text-xs">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i class="fa-solid fa-fish text-accent text-sm"></i>
-                            <span class="font-medium text-sm">Species Distribution</span>
-                        </div>
-                        <div id="analytics-species-chart" class="h-[200px] w-full mb-2"></div>
-                        <div id="analytics-species" class="space-y-1">
-                            <!-- Filled by JS as text rows -->
-                        </div>
-                    </div>
-
-                    <div class="glass-panel rounded-2xl p-4 text-xs">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i class="fa-regular fa-clock text-accent text-sm"></i>
-                            <span class="font-medium text-sm">Catches by Hour</span>
-                        </div>
-                        <div id="analytics-hours-chart" class="h-[200px] w-full mb-2"></div>
-                        <div id="analytics-hours" class="grid grid-cols-4 gap-1 text-[10px]">
-                            <!-- small bars per hour -->
-                        </div>
+                    <div id="analytics-day-chart" class="h-[200px] w-full mb-2"></div>
+                    <div id="analytics-days" class="space-y-1">
+                        <!-- Filled by JS -->
                     </div>
                 </div>
-            </section>
 
-        </main>
-
-        <!-- Bottom Navigation -->
-        <nav id="bottom-nav" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] md:w-[768px] bg-deep/90 backdrop-blur-md border-t border-white/10 flex justify-around items-center h-20 px-2 z-40 pb-2">
-            <button data-nav-target="screen-today" class="bottom-nav-link flex flex-col items-center justify-center w-16 h-full text-accent">
-                <i class="fa-solid fa-moon text-xl mb-1"></i>
-                <span class="text-[10px] font-medium">Today</span>
-            </button>
-            <button data-nav-target="screen-map" class="bottom-nav-link flex flex-col items-center justify-center w-16 h-full text-gray-500 hover:text-white transition-colors">
-                <i class="fa-solid fa-map-location text-xl mb-1"></i>
-                <span class="text-[10px] font-medium">Map</span>
-            </button>
-            <div class="relative -top-6">
-                <button id="fab-add" class="w-14 h-14 rounded-full bg-gradient-to-r from-accent to-teal-400 flex items-center justify-center shadow-[0_0_20px_rgba(79,209,197,0.4)] border-4 border-deep text-deep">
-                    <i class="fa-solid fa-plus text-2xl"></i>
-                </button>
+                <div class="glass-panel rounded-2xl p-4 text-xs">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-regular fa-clock text-accent text-sm"></i>
+                        <span class="font-medium text-sm">Catches by Hour</span>
+                    </div>
+                    <div id="analytics-hours-chart" class="h-[200px] w-full mb-2"></div>
+                    <div id="analytics-hours" class="grid grid-cols-4 gap-1 text-[10px]">
+                        <!-- small bars per hour -->
+                    </div>
+                </div>
             </div>
-            <button data-nav-target="screen-plan" class="bottom-nav-link flex flex-col items-center justify-center w-16 h-full text-gray-500 hover:text-white transition-colors">
-                <i class="fa-solid fa-calendar text-xl mb-1"></i>
-                <span class="text-[10px] font-medium">Plan</span>
+        </section>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav id="bottom-nav" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] md:w-full md:max-w-none bg-deep/90 backdrop-blur-md border-t border-white/10 flex justify-around items-center h-20 px-2 z-40 pb-2">
+        <button data-nav-target="screen-today" class="bottom-nav-link flex flex-col items-center justify-center w-16 h-full text-accent">
+            <i class="fa-solid fa-moon text-xl mb-1"></i>
+            <span class="text-[10px] font-medium">Today</span>
+        </button>
+        <button data-nav-target="screen-plan" class="bottom-nav-link flex flex-col items-center justify-center w-16 h-full text-gray-500 hover:text-white transition-colors">
+            <i class="fa-solid fa-calendar text-xl mb-1"></i>
+            <span class="text-[10px] font-medium">Plan</span>
+        </button>
+        <div class="relative -top-6">
+            <button id="fab-add" class="w-14 h-14 rounded-full bg-gradient-to-r from-accent to-teal-400 flex items-center justify-center shadow-[0_0_20px_rgba(79,209,197,0.4)] border-4 border-deep text-deep">
+                <i class="fa-solid fa-plus text-2xl"></i>
             </button>
-            <button data-nav-target="screen-log" class="bottom-nav-link flex flex-col items-center justify-center w-16 h-full text-gray-500 hover:text-white transition-colors">
-                <i class="fa-solid fa-book-journal-whills text-xl mb-1"></i>
-                <span class="text-[10px] font-medium">Log</span>
-            </button>
-        </nav>
+        </div>
+        <button data-nav-target="screen-techniques" class="bottom-nav-link flex flex-col items-center justify-center w-16 h-full text-gray-500 hover:text-white transition-colors">
+            <i class="fa-solid fa-wand-magic-sparkles text-xl mb-1"></i>
+            <span class="text-[10px] font-medium">Tech</span>
+        </button>
+        <button data-nav-target="screen-log" class="bottom-nav-link flex flex-col items-center justify-center w-16 h-full text-gray-500 hover:text-white transition-colors">
+            <i class="fa-solid fa-book-journal-whills text-xl mb-1"></i>
+            <span class="text-[10px] font-medium">Log</span>
+        </button>
+    </nav>
 
-    </div>
+</div>
 
-    <script>
-        // ---------- UTILITIES ----------
-        function saveJSON(key, value) {
-            localStorage.setItem(key, JSON.stringify(value));
-        }
-        function loadJSON(key, fallback) {
-            const raw = localStorage.getItem(key);
-            if (!raw) return fallback;
-            try { return JSON.parse(raw); } catch { return fallback; }
-        }
+<script>
+    // ---------- UTILITIES ----------
+    function saveJSON(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+    }
+    function loadJSON(key, fallback) {
+        const raw = localStorage.getItem(key);
+        if (!raw) return fallback;
+        try { return JSON.parse(raw); } catch { return fallback; }
+    }
 
-        // ---------- SIDEBAR TOGGLE ----------
-        const menuBtn = document.getElementById('menu-btn');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarOverlay = document.getElementById('sidebar-overlay');
+    // ---------- SIDEBAR TOGGLE ----------
+    const menuBtn = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
 
-        function openSidebar() {
-            sidebar.classList.remove('-translate-x-full');
-            sidebar.classList.remove('pointer-events-none');
-            sidebarOverlay.classList.remove('opacity-0');
-        }
-        function closeSidebar() {
-            sidebar.classList.add('-translate-x-full');
-            sidebar.classList.add('pointer-events-none');
-            sidebarOverlay.classList.add('opacity-0');
-        }
-        function toggleSidebar() {
-            if (sidebar.classList.contains('-translate-x-full')) openSidebar();
-            else closeSidebar();
-        }
+    function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.remove('pointer-events-none');
+        sidebarOverlay.classList.remove('opacity-0');
+    }
+    function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.add('pointer-events-none');
+        sidebarOverlay.classList.add('opacity-0');
+    }
+    function toggleSidebar() {
+        if (sidebar.classList.contains('-translate-x-full')) openSidebar();
+        else closeSidebar();
+    }
 
-        menuBtn.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', closeSidebar);
+    menuBtn.addEventListener('click', toggleSidebar);
+    sidebarOverlay.addEventListener('click', closeSidebar);
 
-        // ---------- NAVIGATION BETWEEN SCREENS ----------
-        const screens = Array.from(document.querySelectorAll('.app-screen'));
-        const bottomLinks = Array.from(document.querySelectorAll('.bottom-nav-link'));
-        const sidebarLinks = Array.from(document.querySelectorAll('.sidebar-link'));
-        const navTargetButtons = Array.from(document.querySelectorAll('[data-nav-target]'));
+    // ---------- NAVIGATION BETWEEN SCREENS ----------
+    const screens = Array.from(document.querySelectorAll('.app-screen'));
+    const bottomLinks = Array.from(document.querySelectorAll('.bottom-nav-link'));
+    const sidebarLinks = Array.from(document.querySelectorAll('.sidebar-link'));
+    const navTargetButtons = Array.from(document.querySelectorAll('[data-nav-target]'));
 
-        function showScreen(id) {
-            screens.forEach(s => {
-                if (s.id === id) s.classList.remove('hidden');
-                else s.classList.add('hidden');
-            });
-            bottomLinks.forEach(btn => {
-                const target = btn.getAttribute('data-nav-target');
-                if (target === id) btn.classList.add('text-accent');
-                else btn.classList.remove('text-accent');
-            });
-            closeSidebar();
-        }
-
-        navTargetButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const target = btn.getAttribute('data-nav-target');
-                if (target) showScreen(target);
-            });
+    function showScreen(id) {
+        screens.forEach(s => {
+            if (s.id === id) s.classList.remove('hidden');
+            else s.classList.add('hidden');
         });
-
-        document.getElementById('fab-add').addEventListener('click', () => {
-            showScreen('screen-log');
+        bottomLinks.forEach(btn => {
+            const target = btn.getAttribute('data-nav-target');
+            if (target === id) btn.classList.add('text-accent');
+            else btn.classList.remove('text-accent');
         });
+        closeSidebar();
+    }
 
-        // Header avatar click => Profile
-        document.getElementById('header-avatar-btn').addEventListener('click', () => {
-            showScreen('screen-profile');
+    navTargetButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.getAttribute('data-nav-target');
+            if (target) showScreen(target);
         });
+    });
 
-        // ---------- PROFILE & AVATAR ----------
-        const profileKey = 'lunafish_profile';
-        const defaultProfile = {
-            name: 'Alex River',
-            zodiac: 'Pisces',
-            style: 'Spinning',
-            avatar: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg'
-        };
+    document.getElementById('fab-add').addEventListener('click', () => {
+        showScreen('screen-log');
+    });
 
-        let profile = loadJSON(profileKey, defaultProfile);
+    // Header avatar click => Profile
+    document.getElementById('header-avatar-btn').addEventListener('click', () => {
+        showScreen('screen-profile');
+    });
 
-        const headerAvatarImg = document.getElementById('header-avatar-img');
-        const sidebarAvatarImg = document.getElementById('sidebar-avatar-img');
-        const profileAvatarImg = document.getElementById('profile-avatar-img');
-        const sidebarName = document.getElementById('sidebar-name');
-        const sidebarMeta = document.getElementById('sidebar-meta');
-        const profileNameDisplay = document.getElementById('profile-name-display');
-        const profileMetaDisplay = document.getElementById('profile-meta-display');
+    // ---------- PROFILE & AVATAR ----------
+    const profileKey = 'lunafish_profile';
+    const defaultProfile = {
+        name: 'Alex River',
+        zodiac: 'Pisces',
+        style: 'Spinning',
+        avatar: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg'
+    };
 
-        const profileNameInput = document.getElementById('profile-name');
-        const profileZodiacInput = document.getElementById('profile-zodiac');
-        const profileStyleInput = document.getElementById('profile-style');
-        const profileForm = document.getElementById('profile-form');
-        const changeAvatarBtn = document.getElementById('change-avatar-btn');
-        const horoscopeTextEl = document.getElementById('horoscope-text');
-        const horoscopeTipEl = document.getElementById('horoscope-tip');
+    let profile = loadJSON(profileKey, defaultProfile);
 
-        function zodiacHoroscope(zodiac) {
-            const z = (zodiac || '').toLowerCase();
-            if (z.includes('pisces') || z.includes('рыбы')) {
-                return {
-                    text: 'Intuition is your strongest tackle today. Trust your gut when choosing a spot, even if the fish finder is quiet.',
-                    tip: 'Drift quietly and watch bird activity – it hints at baitfish movements.'
-                };
-            }
-            if (z.includes('aries') || z.includes('овен')) {
-                return {
-                    text: 'Your boldness pays off. Explore new water instead of your usual place.',
-                    tip: 'Fish fast and cover water aggressively with reaction baits.'
-                };
-            }
-            if (z.includes('taurus') || z.includes('телец')) {
-                return {
-                    text: 'Patience is your superpower. Long sessions on one productive area will pay off.',
-                    tip: 'Use comfortable gear and focus on precise presentations near structure.'
-                };
-            }
-            // default
+    const headerAvatarImg = document.getElementById('header-avatar-img');
+    const sidebarAvatarImg = document.getElementById('sidebar-avatar-img');
+    const profileAvatarImg = document.getElementById('profile-avatar-img');
+    const sidebarName = document.getElementById('sidebar-name');
+    const sidebarMeta = document.getElementById('sidebar-meta');
+    const profileNameDisplay = document.getElementById('profile-name-display');
+    const profileMetaDisplay = document.getElementById('profile-meta-display');
+
+    const profileNameInput = document.getElementById('profile-name');
+    const profileZodiacInput = document.getElementById('profile-zodiac');
+    const profileStyleInput = document.getElementById('profile-style');
+    const profileForm = document.getElementById('profile-form');
+    const changeAvatarBtn = document.getElementById('change-avatar-btn');
+    const horoscopeTextEl = document.getElementById('horoscope-text');
+    const horoscopeTipEl = document.getElementById('horoscope-tip');
+
+    function zodiacHoroscope(zodiac) {
+        const z = (zodiac || '').toLowerCase();
+        if (z.includes('pisces') || z.includes('рыбы')) {
             return {
-                text: 'Your natural rhythm aligns with the water today. Adapt rather than force one pattern.',
-                tip: 'Be ready to change lure type or depth every hour until you crack the code.'
+                text: 'Intuition is your strongest tackle today. Trust your gut when choosing a spot, even if the fish finder is quiet.',
+                tip: 'Drift quietly and watch bird activity – it hints at baitfish movements.'
             };
         }
-
-        function renderProfile() {
-            headerAvatarImg.src = profile.avatar;
-            sidebarAvatarImg.src = profile.avatar;
-            profileAvatarImg.src = profile.avatar;
-            sidebarName.textContent = profile.name || 'Angler';
-            sidebarMeta.textContent = (profile.zodiac || 'Sign') + ' • ' + (profile.style || 'Style');
-            profileNameDisplay.textContent = profile.name || 'Angler';
-            profileMetaDisplay.textContent = (profile.zodiac || 'Sign') + ' • ' + (profile.style || 'Style');
-            profileNameInput.value = profile.name || '';
-            profileZodiacInput.value = profile.zodiac || '';
-            profileStyleInput.value = profile.style || '';
-
-            const h = zodiacHoroscope(profile.zodiac);
-            horoscopeTextEl.textContent = h.text;
-            horoscopeTipEl.textContent = 'Lucky tip: ' + h.tip;
-        }
-
-        profileForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            profile.name = profileNameInput.value || defaultProfile.name;
-            profile.zodiac = profileZodiacInput.value || defaultProfile.zodiac;
-            profile.style = profileStyleInput.value || defaultProfile.style;
-            saveJSON(profileKey, profile);
-            renderProfile();
-        });
-
-        changeAvatarBtn.addEventListener('click', () => {
-            const url = prompt('Paste image URL for your avatar:', profile.avatar);
-            if (!url) return;
-            profile.avatar = url;
-            saveJSON(profileKey, profile);
-            renderProfile();
-        });
-
-        // ---------- LOGBOOK: CATCHES & ANALYTICS ----------
-        const catchKey = 'lunafish_catches';
-        let catches = loadJSON(catchKey, []);
-
-        const catchForm = document.getElementById('catch-form');
-        const catchList = document.getElementById('catch-list');
-        const catchEmpty = document.getElementById('catch-empty');
-        const clearCatchesBtn = document.getElementById('clear-catches');
-
-        function renderCatches() {
-            catchList.innerHTML = '';
-            if (!catches.length) {
-                catchEmpty.classList.remove('hidden');
-            } else {
-                catchEmpty.classList.add('hidden');
-            }
-            catches
-                .slice()
-                .sort((a,b) => new Date(b.datetime || 0) - new Date(a.datetime || 0))
-                .forEach((c, idx) => {
-                    const div = document.createElement('div');
-                    div.className = 'glass-panel rounded-xl p-2 flex gap-2';
-                    const photo = c.photo
-                        ? `<div class="w-12 h-12 rounded-lg overflow-hidden bg-black/40 flex-shrink-0">
-                                <img src="${c.photo}" class="w-full h-full object-cover" onerror="this.style.display='none'">
-                           </div>`
-                        : `<div class="w-12 h-12 rounded-lg bg-black/30 flex items-center justify-center text-gray-500 flex-shrink-0">
-                                <i class="fa-solid fa-fish text-sm"></i>
-                           </div>`;
-
-                    const dt = c.datetime ? new Date(c.datetime) : null;
-                    const dtStr = dt ? dt.toLocaleString(undefined, { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }) : 'Time unknown';
-
-                    div.innerHTML = `
-                        ${photo}
-                        <div class="flex-1 text-[11px]">
-                            <div class="flex justify-between mb-0.5">
-                                <span class="font-semibold text-gray-100">${c.species || 'Unknown species'}</span>
-                                <button data-idx="${idx}" class="catch-remove text-red-400 text-[10px] hover:underline">Delete</button>
-                            </div>
-                            <div class="text-gray-400">
-                                ${c.length ? `${c.length} cm • ` : ''}${c.weight ? `${c.weight} kg • ` : ''}${c.location || 'Unknown spot'}
-                            </div>
-                            <div class="text-gray-500">${dtStr}</div>
-                            ${c.notes ? `<div class="mt-0.5 text-gray-300">${c.notes}</div>` : ''}
-                        </div>
-                    `;
-                    catchList.appendChild(div);
-                });
-
-            renderAnalytics();
-        }
-
-        catchForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = new FormData(catchForm);
-            const data = {
-                species: formData.get('species')?.trim() || '',
-                location: formData.get('location')?.trim() || '',
-                length: formData.get('length') ? Number(formData.get('length')) : null,
-                weight: formData.get('weight') ? Number(formData.get('weight')) : null,
-                datetime: formData.get('datetime') || new Date().toISOString(),
-                photo: formData.get('photo')?.trim() || '',
-                notes: formData.get('notes')?.trim() || ''
+        if (z.includes('aries') || z.includes('овен')) {
+            return {
+                text: 'Your boldness pays off. Explore new water instead of your usual place.',
+                tip: 'Fish fast and cover water aggressively with reaction baits.'
             };
-            catches.push(data);
-            saveJSON(catchKey, catches);
-            catchForm.reset();
-            renderCatches();
-        });
+        }
+        if (z.includes('taurus') || z.includes('телец')) {
+            return {
+                text: 'Patience is your superpower. Long sessions on one productive area will pay off.',
+                tip: 'Use comfortable gear and focus on precise presentations near structure.'
+            };
+        }
+        // default
+        return {
+            text: 'Your natural rhythm aligns with the water today. Adapt rather than force one pattern.',
+            tip: 'Be ready to change lure type or depth every hour until you crack the code.'
+        };
+    }
 
-        clearCatchesBtn.addEventListener('click', () => {
-            if (!catches.length) return;
-            if (!confirm('Clear all catches?')) return;
-            catches = [];
-            saveJSON(catchKey, catches);
-            renderCatches();
-        });
+    function renderProfile() {
+        headerAvatarImg.src = profile.avatar;
+        sidebarAvatarImg.src = profile.avatar;
+        profileAvatarImg.src = profile.avatar;
+        sidebarName.textContent = profile.name || 'Angler';
+        sidebarMeta.textContent = (profile.zodiac || 'Sign') + ' • ' + (profile.style || 'Style');
+        profileNameDisplay.textContent = profile.name || 'Angler';
+        profileMetaDisplay.textContent = (profile.zodiac || 'Sign') + ' • ' + (profile.style || 'Style');
+        profileNameInput.value = profile.name || '';
+        profileZodiacInput.value = profile.zodiac || '';
+        profileStyleInput.value = profile.style || '';
 
-        catchList.addEventListener('click', (e) => {
-            const btn = e.target.closest('.catch-remove');
-            if (!btn) return;
-            const idx = Number(btn.getAttribute('data-idx'));
-            catches.splice(idx,1);
-            saveJSON(catchKey, catches);
-            renderCatches();
-        });
+        const h = zodiacHoroscope(profile.zodiac);
+        horoscopeTextEl.textContent = h.text;
+        horoscopeTipEl.textContent = 'Lucky tip: ' + h.tip;
+    }
 
-        // Analytics
-        const analyticsSummary = document.getElementById('analytics-summary');
-        const analyticsSpeciesText = document.getElementById('analytics-species');
-        const analyticsHoursGrid = document.getElementById('analytics-hours');
-        const analyticsSpeciesChart = document.getElementById('analytics-species-chart');
-        const analyticsHoursChart = document.getElementById('analytics-hours-chart');
+    profileForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        profile.name = profileNameInput.value || defaultProfile.name;
+        profile.zodiac = profileZodiacInput.value || defaultProfile.zodiac;
+        profile.style = profileStyleInput.value || defaultProfile.style;
+        saveJSON(profileKey, profile);
+        renderProfile();
+    });
 
-        function renderAnalytics() {
-            // Summary
-            const total = catches.length;
-            let totalWeight = 0, countWeight = 0;
-            let totalLength = 0, countLength = 0;
-            catches.forEach(c => {
-                if (c.weight) { totalWeight += c.weight; countWeight++; }
-                if (c.length) { totalLength += c.length; countLength++; }
-            });
-            const avgWeight = countWeight ? (totalWeight/countWeight).toFixed(1) : '-';
-            const avgLength = countLength ? (totalLength/countLength).toFixed(0) : '-';
+    changeAvatarBtn.addEventListener('click', () => {
+        const url = prompt('Paste image URL for your avatar:', profile.avatar);
+        if (!url) return;
+        profile.avatar = url;
+        saveJSON(profileKey, profile);
+        renderProfile();
+    });
 
-            analyticsSummary.innerHTML = `
-                <div class="glass-panel rounded-xl p-2">
-                    <div class="text-[10px] text-gray-400 mb-1">Total Catches</div>
-                    <div class="text-lg font-semibold">${total}</div>
-                </div>
-                <div class="glass-panel rounded-xl p-2">
-                    <div class="text-[10px] text-gray-400 mb-1">Avg Weight (kg)</div>
-                    <div class="text-lg font-semibold">${avgWeight}</div>
-                </div>
-                <div class="glass-panel rounded-xl p-2">
-                    <div class="text-[10px] text-gray-400 mb-1">Avg Length (cm)</div>
-                    <div class="text-lg font-semibold">${avgLength}</div>
-                </div>
-            `;
+    // ---------- LOGBOOK: CATCHES & ANALYTICS ----------
+    const catchKey = 'lunafish_catches';
+    let catches = loadJSON(catchKey, []);
 
-            // Species breakdown text + chart
-            const speciesCount = {};
-            catches.forEach(c => {
-                const s = c.species || 'Unknown';
-                speciesCount[s] = (speciesCount[s] || 0) + 1;
-            });
-            analyticsSpeciesText.innerHTML = '';
-            const entries = Object.entries(speciesCount).sort((a,b) => b[1]-a[1]);
-            if (!entries.length) {
-                analyticsSpeciesText.innerHTML = `<div class="text-[11px] text-gray-500">No data yet.</div>`;
-            } else {
-                entries.forEach(([name,count]) => {
-                    const barWidth = Math.min(100, count * 20);
-                    const row = document.createElement('div');
-                    row.className = 'flex items-center gap-2';
-                    row.innerHTML = `
-                        <div class="w-16 truncate">${name}</div>
-                        <div class="flex-1 bg-white/5 rounded-full h-2 overflow-hidden">
-                            <div class="h-2 bg-accent" style="width:${barWidth}%"></div>
-                        </div>
-                        <div class="w-6 text-right text-[10px] text-gray-300">${count}</div>
-                    `;
-                    analyticsSpeciesText.appendChild(row);
-                });
-            }
+    const catchForm = document.getElementById('catch-form');
+    const catchList = document.getElementById('catch-list');
+    const catchEmpty = document.getElementById('catch-empty');
+    const clearCatchesBtn = document.getElementById('clear-catches');
 
-            // Small hour grid
-            const hoursCount = new Array(24).fill(0);
-            catches.forEach(c => {
-                if (!c.datetime) return;
-                const d = new Date(c.datetime);
-                const h = d.getHours();
-                hoursCount[h]++;
-            });
-            analyticsHoursGrid.innerHTML = '';
-            for (let h = 0; h < 24; h++) {
-                const c = hoursCount[h];
+    function renderCatches() {
+        catchList.innerHTML = '';
+        if (!catches.length) {
+            catchEmpty.classList.remove('hidden');
+        } else {
+            catchEmpty.classList.add('hidden');
+        }
+        catches
+            .slice()
+            .sort((a,b) => new Date(b.datetime || 0) - new Date(a.datetime || 0))
+            .forEach((c, idx) => {
                 const div = document.createElement('div');
-                div.className = 'flex flex-col items-center gap-1';
-                const barHeight = c ? Math.min(40, c * 10) : 2;
+                div.className = 'glass-panel rounded-xl p-2 flex gap-2';
+                const photo = c.photo
+                    ? `<div class="w-12 h-12 rounded-lg overflow-hidden bg-black/40 flex-shrink-0">
+                            <img src="${c.photo}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                       </div>`
+                    : `<div class="w-12 h-12 rounded-lg bg-black/30 flex items-center justify-center text-gray-500 flex-shrink-0">
+                            <i class="fa-solid fa-fish text-sm"></i>
+                       </div>`;
+
+                const dt = c.datetime ? new Date(c.datetime) : null;
+                const dtStr = dt ? dt.toLocaleString(undefined, { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }) : 'Time unknown';
+
                 div.innerHTML = `
-                    <div class="w-3 bg-accent/20 rounded-full overflow-hidden flex items-end justify-center" style="height:40px">
-                        <div class="w-full bg-accent" style="height:${barHeight}px"></div>
+                    ${photo}
+                    <div class="flex-1 text-[11px]">
+                        <div class="flex justify-between mb-0.5">
+                            <span class="font-semibold text-gray-100">${c.species || 'Unknown species'}</span>
+                            <button data-idx="${idx}" class="catch-remove text-red-400 text-[10px] hover:underline">Delete</button>
+                        </div>
+                        <div class="text-gray-400">
+                            ${c.length ? `${c.length} cm • ` : ''}${c.weight ? `${c.weight} kg • ` : ''}${c.location || 'Unknown spot'}
+                        </div>
+                        <div class="text-gray-500">${dtStr}</div>
+                        ${c.notes ? `<div class="mt-0.5 text-gray-300">${c.notes}</div>` : ''}
                     </div>
-                    <span class="text-[9px] text-gray-400">${h.toString().padStart(2,'0')}</span>
                 `;
-                analyticsHoursGrid.appendChild(div);
-            }
+                catchList.appendChild(div);
+            });
 
-            // Plotly charts
-            try {
-                if (entries.length) {
-                    Plotly.newPlot(analyticsSpeciesChart, [{
-                        labels: entries.map(e=>e[0]),
-                        values: entries.map(e=>e[1]),
-                        type: 'pie',
-                        marker: { colors: ['#4FD1C5','#F6E05E','#63B3ED','#F56565','#ED8936','#9F7AEA'] }
-                    }], {
-                        margin: {t:0,b:0,l:0,r:0},
-                        paper_bgcolor:'rgba(0,0,0,0)',
-                        plot_bgcolor:'rgba(0,0,0,0)',
-                        showlegend:false
-                    }, {
-                        displayModeBar:false,
-                        responsive:true
-                    });
-                } else {
-                    analyticsSpeciesChart.innerHTML = '<div class="text-[11px] text-gray-500 text-center py-8">No species data yet.</div>';
-                }
+        renderAnalytics();
+    }
 
-                Plotly.newPlot(analyticsHoursChart, [{
-                    x: hoursCount.map((_,i)=>i),
-                    y: hoursCount,
-                    type: 'bar',
-                    marker: { color:'#4FD1C5' }
+    catchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(catchForm);
+        const data = {
+            species: formData.get('species')?.trim() || '',
+            location: formData.get('location')?.trim() || '',
+            length: formData.get('length') ? Number(formData.get('length')) : null,
+            weight: formData.get('weight') ? Number(formData.get('weight')) : null,
+            datetime: formData.get('datetime') || new Date().toISOString(),
+            photo: formData.get('photo')?.trim() || '',
+            notes: formData.get('notes')?.trim() || ''
+        };
+        catches.push(data);
+        saveJSON(catchKey, catches);
+        catchForm.reset();
+        renderCatches();
+    });
+
+    clearCatchesBtn.addEventListener('click', () => {
+        if (!catches.length) return;
+        if (!confirm('Clear all catches?')) return;
+        catches = [];
+        saveJSON(catchKey, catches);
+        renderCatches();
+    });
+
+    catchList.addEventListener('click', (e) => {
+        const btn = e.target.closest('.catch-remove');
+        if (!btn) return;
+        const idx = Number(btn.getAttribute('data-idx'));
+        catches.splice(idx,1);
+        saveJSON(catchKey, catches);
+        renderCatches();
+    });
+
+    // Analytics
+    const analyticsSummary = document.getElementById('analytics-summary');
+    const analyticsSpeciesText = document.getElementById('analytics-species');
+    const analyticsHoursGrid = document.getElementById('analytics-hours');
+    const analyticsSpeciesChart = document.getElementById('analytics-species-chart');
+    const analyticsHoursChart = document.getElementById('analytics-hours-chart');
+
+    function renderAnalytics() {
+        // Summary
+        const total = catches.length;
+        let totalWeight = 0, countWeight = 0;
+        let totalLength = 0, countLength = 0;
+        catches.forEach(c => {
+            if (c.weight) { totalWeight += c.weight; countWeight++; }
+            if (c.length) { totalLength += c.length; countLength++; }
+        });
+        const avgWeight = countWeight ? (totalWeight/countWeight).toFixed(1) : '-';
+        const avgLength = countLength ? (totalLength/countLength).toFixed(0) : '-';
+
+        analyticsSummary.innerHTML = `
+            <div class="glass-panel rounded-xl p-2">
+                <div class="text-[10px] text-gray-400 mb-1">Total Catches</div>
+                <div class="text-lg font-semibold">${total}</div>
+            </div>
+            <div class="glass-panel rounded-xl p-2">
+                <div class="text-[10px] text-gray-400 mb-1">Avg Weight (kg)</div>
+                <div class="text-lg font-semibold">${avgWeight}</div>
+            </div>
+            <div class="glass-panel rounded-xl p-2">
+                <div class="text-[10px] text-gray-400 mb-1">Avg Length (cm)</div>
+                <div class="text-lg font-semibold">${avgLength}</div>
+            </div>
+        `;
+
+        // Species breakdown text + chart
+        const speciesCount = {};
+        catches.forEach(c => {
+            const s = c.species || 'Unknown';
+            speciesCount[s] = (speciesCount[s] || 0) + 1;
+        });
+        analyticsSpeciesText.innerHTML = '';
+        const entries = Object.entries(speciesCount).sort((a,b) => b[1]-a[1]);
+        if (!entries.length) {
+            analyticsSpeciesText.innerHTML = `<div class="text-[11px] text-gray-500">No data yet.</div>`;
+        } else {
+            entries.forEach(([name,count]) => {
+                const barWidth = Math.min(100, count * 20);
+                const row = document.createElement('div');
+                row.className = 'flex items-center gap-2';
+                row.innerHTML = `
+                    <div class="w-16 truncate">${name}</div>
+                    <div class="flex-1 bg-white/5 rounded-full h-2 overflow-hidden">
+                        <div class="h-2 bg-accent" style="width:${barWidth}%"></div>
+                    </div>
+                    <div class="w-6 text-right text-[10px] text-gray-300">${count}</div>
+                `;
+                analyticsSpeciesText.appendChild(row);
+            });
+        }
+
+        // Small hour grid
+        const hoursCount = new Array(24).fill(0);
+        catches.forEach(c => {
+            if (!c.datetime) return;
+            const d = new Date(c.datetime);
+            const h = d.getHours();
+            hoursCount[h]++;
+        });
+        analyticsHoursGrid.innerHTML = '';
+        for (let h = 0; h < 24; h++) {
+            const c = hoursCount[h];
+            const div = document.createElement('div');
+            div.className = 'flex flex-col items-center gap-1';
+            const barHeight = c ? Math.min(40, c * 10) : 2;
+            div.innerHTML = `
+                <div class="w-3 bg-accent/20 rounded-full overflow-hidden flex items-end justify-center" style="height:40px">
+                    <div class="w-full bg-accent" style="height:${barHeight}px"></div>
+                </div>
+                <span class="text-[9px] text-gray-400">${h.toString().padStart(2,'0')}</span>
+            `;
+            analyticsHoursGrid.appendChild(div);
+        }
+
+        // Plotly charts
+        try {
+            if (entries.length) {
+                Plotly.newPlot(analyticsSpeciesChart, [{
+                    labels: entries.map(e=>e[0]),
+                    values: entries.map(e=>e[1]),
+                    type: 'pie',
+                    marker: { colors: ['#4FD1C5','#F6E05E','#63B3ED','#F56565','#ED8936','#9F7AEA'] }
                 }], {
-                    margin:{t:5,b:25,l:25,r:5},
+                    margin: {t:0,b:0,l:0,r:0},
                     paper_bgcolor:'rgba(0,0,0,0)',
                     plot_bgcolor:'rgba(0,0,0,0)',
-                    xaxis:{
-                        color:'#718096',
-                        tickfont:{size:9},
-                        dtick:2,
-                        title:'Hour'
-                    },
-                    yaxis:{
-                        color:'#718096',
-                        tickfont:{size:9},
-                        gridcolor:'rgba(255,255,255,0.05)',
-                        title:'Catches'
-                    },
-                    height:200
+                    showlegend:false
                 }, {
                     displayModeBar:false,
                     responsive:true
                 });
-            } catch(e) {
-                console.error('Analytics chart error', e);
-                analyticsSpeciesChart.innerHTML = '<div class="text-[11px] text-gray-500 text-center py-8">Chart unavailable.</div>';
-                analyticsHoursChart.innerHTML = '<div class="text-[11px] text-gray-500 text-center py-8">Chart unavailable.</div>';
+            } else {
+                analyticsSpeciesChart.innerHTML = '<div class="text-[11px] text-gray-500 text-center py-8">No species data yet.</div>';
             }
-        }
 
-        // Tabs
-        const logTabCatches = document.getElementById('log-tab-catches');
-        const logTabAnalytics = document.getElementById('log-tab-analytics');
-        const logCatchesPanel = document.getElementById('log-catches-panel');
-        const logAnalyticsPanel = document.getElementById('log-analytics-panel');
-
-        logTabCatches.addEventListener('click', () => {
-            logTabCatches.classList.add('bg-accent','text-deep','font-semibold');
-            logTabCatches.classList.remove('bg-white/10','text-gray-300');
-            logTabAnalytics.classList.remove('bg-accent','text-deep','font-semibold');
-            logTabAnalytics.classList.add('bg-white/10','text-gray-300');
-            logCatchesPanel.classList.remove('hidden');
-            logAnalyticsPanel.classList.add('hidden');
-        });
-        logTabAnalytics.addEventListener('click', () => {
-            logTabAnalytics.classList.add('bg-accent','text-deep','font-semibold');
-            logTabAnalytics.classList.remove('bg-white/10','text-gray-300');
-            logTabCatches.classList.remove('bg-accent','text-deep','font-semibold');
-            logTabCatches.classList.add('bg-white/10','text-gray-300');
-            logAnalyticsPanel.classList.remove('hidden');
-            logCatchesPanel.classList.add('hidden');
-            renderAnalytics();
-        });
-
-        // ---------- FISH CATALOG ----------
-        const fishListEl = document.getElementById('fish-list');
-        const fishDetailEl = document.getElementById('fish-detail');
-        const fishDetailName = document.getElementById('fish-detail-name');
-        const fishDetailRating = document.getElementById('fish-detail-rating');
-        const fishDetailMoon = document.getElementById('fish-detail-moon');
-        const fishDetailTimes = document.getElementById('fish-detail-times');
-        const fishDetailLocations = document.getElementById('fish-detail-locations');
-        const fishDetailTackle = document.getElementById('fish-detail-tackle');
-        const fishDetailLures = document.getElementById('fish-detail-lures');
-
-        const fishData = [
-            {
-                id: 'pike',
-                name: 'Northern Pike',
-                rating: 'High',
-                ratingColor: 'bg-green-500/20 text-green-400',
-                moon: 'Loves waxing phases with rising pressure.',
-                times: 'Best 04:00–09:00 & 17:00–21:00.',
-                locations: 'Shallow weedy bays, reed edges, drop-offs near vegetation.',
-                tackle: 'Fast spinning rod, wire/fluoro leader 0.30mm, medium-heavy setup.',
-                lures: 'Spoons, spinnerbaits, soft swimbaits in silver/blue or firetiger.'
-            },
-            {
-                id: 'perch',
-                name: 'Perch',
-                rating: 'Medium',
-                ratingColor: 'bg-yellow-500/20 text-yellow-400',
-                moon: 'Active around first and last quarter moon.',
-                times: 'Dawn & dusk, plus mid-day around structure.',
-                locations: 'Drop-offs, rocky points, submerged timber, schooling spots.',
-                tackle: 'Light spinning tackle, thin braid with fluoro leader.',
-                lures: 'Small jig heads, soft plastics, micro-cranks in natural colors.'
-            },
-            {
-                id: 'bream',
-                name: 'Bream',
-                rating: 'Low',
-                ratingColor: 'bg-blue-500/20 text-blue-400',
-                moon: 'Stable during full and new moon, prefers steady pressure.',
-                times: 'Early morning and late evening.',
-                locations: 'Deep slow pools, holes, gravel bars.',
-                tackle: 'Feeder or float rod, fine terminal tackle.',
-                lures: 'Groundbait, worms, corn, and maggots.'
-            }
-        ];
-
-        function renderFishList() {
-            fishListEl.innerHTML = '';
-            fishData.forEach(f => {
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'w-full glass-panel rounded-xl p-3 flex items-center justify-between text-left hover:bg-white/5 transition-colors';
-                btn.setAttribute('data-fish-id', f.id);
-                btn.innerHTML = `
-                    <div class="text-xs">
-                        <div class="font-medium text-gray-100">${f.name}</div>
-                        <div class="text-[10px] text-gray-400">${f.locations}</div>
-                    </div>
-                    <span class="px-2 py-0.5 rounded-full ${f.ratingColor} text-[10px] font-bold uppercase">${f.rating}</span>
-                `;
-                fishListEl.appendChild(btn);
-            });
-        }
-
-        fishListEl.addEventListener('click', (e) => {
-            const btn = e.target.closest('[data-fish-id]');
-            if (!btn) return;
-            const id = btn.getAttribute('data-fish-id');
-            const fish = fishData.find(f => f.id === id);
-            if (!fish) return;
-            fishDetailEl.classList.remove('hidden');
-            fishDetailName.textContent = fish.name;
-            fishDetailRating.textContent = fish.rating + ' today';
-            fishDetailRating.className = `px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${fish.ratingColor}`;
-            fishDetailMoon.textContent = fish.moon;
-            fishDetailTimes.textContent = fish.times;
-            fishDetailLocations.textContent = fish.locations;
-            fishDetailTackle.textContent = fish.tackle;
-            fishDetailLures.textContent = fish.lures;
-        });
-
-        // ---------- MAP SPOTS ----------
-        const mapSpotsList = document.getElementById('map-spots-list');
-        const mapSpotButtons = Array.from(document.querySelectorAll('.map-spot'));
-        const spotDetail = document.getElementById('spot-detail');
-        const spotName = document.getElementById('spot-name');
-        const spotRatingBadge = document.getElementById('spot-rating-badge');
-        const spotMeta = document.getElementById('spot-meta');
-        const spotTip = document.getElementById('spot-tip');
-        const spotSpecies = document.getElementById('spot-species');
-        const generateNewSpotsBtn = document.getElementById('generate-new-spots');
-
-        function generateNewSpots() {
-            const today = new Date();
-            const dayData = generateDayData(today);
-            const newSpots = [
-                {
-                    name: `${dayData.species[0]} Cove`,
-                    type: 'Lake',
-                    rating: dayData.ratingLabel,
-                    tip: 'Focus on shallow edges with vegetation. Use slow retrieves.',
-                    species: dayData.species
+            Plotly.newPlot(analyticsHoursChart, [{
+                x: hoursCount.map((_,i)=>i),
+                y: hoursCount,
+                type: 'bar',
+                marker: { color:'#4FD1C5' }
+            }], {
+                margin:{t:5,b:25,l:25,r:5},
+                paper_bgcolor:'rgba(0,0,0,0)',
+                plot_bgcolor:'rgba(0,0,0,0)',
+                xaxis:{
+                    color:'#718096',
+                    tickfont:{size:9},
+                    dtick:2,
+                    title:'Hour'
                 },
-                {
-                    name: `Moonlit ${dayData.species[1] || 'Bend'}`,
-                    type: 'River',
-                    rating: dayData.ratingLabel === 'High' ? 'Medium' : 'Low',
-                    tip: 'Fish near current breaks and structure. Bright lures work well.',
-                    species: [dayData.species[0]]
-                }
-            ];
-            mapSpotsList.innerHTML = '';
-            newSpots.forEach(spot => {
-                const btn = document.createElement('button');
-                btn.className = 'w-full flex items-center justify-between bg-white/5 hover:bg-white/10 transition-colors rounded-xl px-3 py-2 text-left map-spot';
-                btn.setAttribute('data-spot', JSON.stringify(spot));
-                btn.innerHTML = `
-                    <div>
-                        <div class="text-sm font-medium">${spot.name}</div>
-                        <div class="text-[10px] text-gray-400">${spot.type} • ${spot.rating === 'High' ? 'Shallow + current' : spot.rating === 'Medium' ? 'Clear & calm' : 'Deep & steady'}</div>
-                    </div>
-                    <span class="px-2 py-0.5 rounded-full ${spot.rating === 'High' ? 'bg-green-500/20 text-green-400' : spot.rating === 'Medium' ? 'bg-yellow-500/20 text-yellow-400' : 'bg-red-500/20 text-red-400'} text-[10px] font-bold uppercase">${spot.rating}</span>
-                `;
-                mapSpotsList.appendChild(btn);
+                yaxis:{
+                    color:'#718096',
+                    tickfont:{size:9},
+                    gridcolor:'rgba(255,255,255,0.05)',
+                    title:'Catches'
+                },
+                height:200
+            }, {
+                displayModeBar:false,
+                responsive:true
             });
+        } catch(e) {
+            console.error('Analytics chart error', e);
+            analyticsSpeciesChart.innerHTML = '<div class="text-[11px] text-gray-500 text-center py-8">Chart unavailable.</div>';
+            analyticsHoursChart.innerHTML = '<div class="text-[11px] text-gray-500 text-center py-8">Chart unavailable.</div>';
         }
+    }
 
-        function renderSpot(spot) {
-            spotDetail.classList.remove('hidden');
-            spotName.textContent = spot.name;
-            spotMeta.textContent = `${spot.type} • Predicted bite: ${spot.rating}`;
-            spotTip.textContent = spot.tip;
-            spotSpecies.innerHTML = '';
-            (spot.species || []).forEach(s => {
-                const span = document.createElement('span');
-                span.className = 'px-2 py-0.5 rounded-full bg-white/5 text-[10px] text-gray-200';
-                span.textContent = s;
-                spotSpecies.appendChild(span);
-            });
-            let cls = 'bg-yellow-500/20 text-yellow-400';
-            if (spot.rating === 'High') cls = 'bg-green-500/20 text-green-400';
-            if (spot.rating === 'Low') cls = 'bg-red-500/20 text-red-400';
-            spotRatingBadge.className = `px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${cls}`;
-            spotRatingBadge.textContent = spot.rating;
+    // Tabs
+    const logTabCatches = document.getElementById('log-tab-catches');
+    const logTabAnalytics = document.getElementById('log-tab-analytics');
+    const logCatchesPanel = document.getElementById('log-catches-panel');
+    const logAnalyticsPanel = document.getElementById('log-analytics-panel');
+
+    logTabCatches.addEventListener('click', () => {
+        logTabCatches.classList.add('bg-accent','text-deep','font-semibold');
+        logTabCatches.classList.remove('bg-white/10','text-gray-300');
+        logTabAnalytics.classList.remove('bg-accent','text-deep','font-semibold');
+        logTabAnalytics.classList.add('bg-white/10','text-gray-300');
+        logCatchesPanel.classList.remove('hidden');
+        logAnalyticsPanel.classList.add('hidden');
+    });
+    logTabAnalytics.addEventListener('click', () => {
+        logTabAnalytics.classList.add('bg-accent','text-deep','font-semibold');
+        logTabAnalytics.classList.remove('bg-white/10','text-gray-300');
+        logTabCatches.classList.remove('bg-accent','text-deep','font-semibold');
+        logTabCatches.classList.add('bg-white/10','text-gray-300');
+        logAnalyticsPanel.classList.remove('hidden');
+        logCatchesPanel.classList.add('hidden');
+        renderAnalytics();
+    });
+
+    // ---------- FISH CATALOG ----------
+    const fishListEl = document.getElementById('fish-list');
+    const fishDetailEl = document.getElementById('fish-detail');
+    const fishDetailName = document.getElementById('fish-detail-name');
+    const fishDetailRating = document.getElementById('fish-detail-rating');
+    const fishDetailMoon = document.getElementById('fish-detail-moon');
+    const fishDetailTimes = document.getElementById('fish-detail-times');
+    const fishDetailLocations = document.getElementById('fish-detail-locations');
+    const fishDetailTackle = document.getElementById('fish-detail-tackle');
+    const fishDetailLures = document.getElementById('fish-detail-lures');
+
+    const fishData = [
+        {
+            id: 'pike',
+            name: 'Northern Pike',
+            rating: 'High',
+            ratingColor: 'bg-green-500/20 text-green-400',
+            moon: 'Loves waxing phases with rising pressure.',
+            times: 'Best 04:00–09:00 & 17:00–21:00.',
+            locations: 'Shallow weedy bays, reed edges, drop-offs near vegetation.',
+            tackle: 'Fast spinning rod, wire/fluoro leader 0.30mm, medium-heavy setup.',
+            lures: 'Spoons, spinnerbaits, soft swimbaits in silver/blue or firetiger.'
+        },
+        {
+            id: 'perch',
+            name: 'Perch',
+            rating: 'Medium',
+            ratingColor: 'bg-yellow-500/20 text-yellow-400',
+            moon: 'Active around first and last quarter moon.',
+            times: 'Dawn & dusk, plus mid-day around structure.',
+            locations: 'Drop-offs, rocky points, submerged timber, schooling spots.',
+            tackle: 'Light spinning tackle, thin braid with fluoro leader.',
+            lures: 'Small jig heads, soft plastics, micro-cranks in natural colors.'
+        },
+        {
+            id: 'bream',
+            name: 'Bream',
+            rating: 'Low',
+            ratingColor: 'bg-blue-500/20 text-blue-400',
+            moon: 'Stable during full and new moon, prefers steady pressure.',
+            times: 'Early morning and late evening.',
+            locations: 'Deep slow pools, holes, gravel bars.',
+            tackle: 'Feeder or float rod, fine terminal tackle.',
+            lures: 'Groundbait, worms, corn, and maggots.'
         }
+    ];
 
-        mapSpotsList.addEventListener('click', (e) => {
-            const btn = e.target.closest('.map-spot');
-            if (!btn) return;
-            const data = btn.getAttribute('data-spot');
-            if (!data) return;
-            try {
-                const spot = JSON.parse(data);
-                renderSpot(spot);
-            } catch {}
+    function renderFishList() {
+        fishListEl.innerHTML = '';
+        fishData.forEach(f => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'w-full glass-panel rounded-xl p-3 flex items-center justify-between text-left hover:bg-white/5 transition-colors';
+            btn.setAttribute('data-fish-id', f.id);
+            btn.innerHTML = `
+                <div class="text-xs">
+                    <div class="font-medium text-gray-100">${f.name}</div>
+                    <div class="text-[10px] text-gray-400">${f.locations}</div>
+                </div>
+                <span class="px-2 py-0.5 rounded-full ${f.ratingColor} text-[10px] font-bold uppercase">${f.rating}</span>
+            `;
+            fishListEl.appendChild(btn);
         });
+    }
 
-        generateNewSpotsBtn.addEventListener('click', generateNewSpots);
+    fishListEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-fish-id]');
+        if (!btn) return;
+        const id = btn.getAttribute('data-fish-id');
+        const fish = fishData.find(f => f.id === id);
+        if (!fish) return;
+        fishDetailEl.classList.remove('hidden');
+        fishDetailName.textContent = fish.name;
+        fishDetailRating.textContent = fish.rating + ' today';
+        fishDetailRating.className = `px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${fish.ratingColor}`;
+        fishDetailMoon.textContent = fish.moon;
+        fishDetailTimes.textContent = fish.times;
+        fishDetailLocations.textContent = fish.locations;
+        fishDetailTackle.textContent = fish.tackle;
+        fishDetailLures.textContent = fish.lures;
+    });
 
-        // ---------- CALENDAR / PLAN + EVENTS + CONDITIONS ----------
-        const calendarGrid = document.getElementById('calendar-grid');
-        const calendarMonthLabel = document.getElementById('calendar-month-label');
-        const calendarDayDetail = document.getElementById('calendar-day-detail');
-        const dayDetailDate = document.getElementById('day-detail-date');
-        const dayDetailRating = document.getElementById('day-detail-rating');
-        const dayDetailMoon = document.getElementById('day-detail-moon');
-        const dayDetailEnergy = document.getElementById('day-detail-energy');
-        const dayDetailSpecies = document.getElementById('day-detail-species');
-        const dayDetailTip = document.getElementById('day-detail-tip');
-        const dayDetailConditions = document.getElementById('day-detail-conditions');
-        const dayDetailGear = document.getElementById('day-detail-gear');
-        const dayDetailLures = document.getElementById('day-detail-lures');
-        const dayDetailStrategy = document.getElementById('day-detail-strategy');
-        const calendarEventForm = document.getElementById('calendar-event-form');
-        const calendarEventsList = document.getElementById('calendar-events-list');
-        const calendarGenerateCatchBtn = document.getElementById('calendar-generate-catch');
+    // ---------- CALENDAR / PLAN + EVENTS + CONDITIONS ----------
+    const calendarGrid = document.getElementById('calendar-grid');
+    const calendarMonthLabel = document.getElementById('calendar-month-label');
+    const calendarDayDetail = document.getElementById('calendar-day-detail');
+    const dayDetailDate = document.getElementById('day-detail-date');
+    const dayDetailRating = document.getElementById('day-detail-rating');
+    const dayDetailMoon = document.getElementById('day-detail-moon');
+    const dayDetailEnergy = document.getElementById('day-detail-energy');
+    const dayDetailSpecies = document.getElementById('day-detail-species');
+    const dayDetailTip = document.getElementById('day-detail-tip');
+    const dayDetailConditions = document.getElementById('day-detail-conditions');
+    const dayDetailGear = document.getElementById('day-detail-gear');
+    const dayDetailLures = document.getElementById('day-detail-lures');
+    const dayDetailStrategy = document.getElementById('day-detail-strategy');
+    const calendarEventForm = document.getElementById('calendar-event-form');
+    const calendarEventsList = document.getElementById('calendar-events-list');
+    const calendarGenerateCatchBtn = document.getElementById('calendar-generate-catch');
 
-        const calendarEventsKey = 'lunafish_calendar_events'; // map { "YYYY-MM-DD":[{title,time,note}] }
-        let calendarEvents = loadJSON(calendarEventsKey, {});
-        let currentCalendarDateISO = null; // "YYYY-MM-DD"
-        const calendarToday = new Date();
+    const calendarEventsKey = 'lunafish_calendar_events'; // map { "YYYY-MM-DD":[{title,time,note}] }
+    let calendarEvents = loadJSON(calendarEventsKey, {});
+    let currentCalendarDateISO = null; // "YYYY-MM-DD"
+    const calendarToday = new Date();
 
-        // Add demo events for today
-        const todayISO = calendarToday.toISOString().slice(0,10);
-        if (!calendarEvents[todayISO]) {
-            calendarEvents[todayISO] = [
-                { title: 'Morning Session', time: '06:00-10:00', note: 'Target pike on weed edges.' },
-                { title: 'Evening Bite', time: '18:00-21:00', note: 'Perch drop-offs.' }
-            ];
-            saveJSON(calendarEventsKey, calendarEvents);
+    // Add demo events for today
+    const todayISO = calendarToday.toISOString().slice(0,10);
+    if (!calendarEvents[todayISO]) {
+        calendarEvents[todayISO] = [
+            { title: 'Morning Session', time: '06:00-10:00', note: 'Target pike on weed edges.' },
+            { title: 'Evening Bite', time: '18:00-21:00', note: 'Perch drop-offs.' }
+        ];
+        saveJSON(calendarEventsKey, calendarEvents);
+    }
+
+    function generateDayData(date) {
+        const day = date.getDate();
+        const phases = ['New', 'Waxing', 'First Quarter', 'Waxing Gibbous', 'Full', 'Waning Gibbous', 'Last Quarter', 'Waning'];
+        const phase = phases[day % phases.length];
+        const ratingVal = (day % 5) + 1;
+        const ratingLabel = ratingVal >= 4 ? 'High' : ratingVal === 3 ? 'Medium' : 'Low';
+        const ratingColor = ratingVal >= 4 ? 'bg-green-500/20 text-green-400'
+                      : ratingVal === 3 ? 'bg-yellow-500/20 text-yellow-400'
+                      : 'bg-red-500/20 text-red-400';
+        const energy = ratingVal >= 4 ? 'Strong, dynamic currents. Great for predators.'
+                 : ratingVal === 3 ? 'Balanced conditions, versatile fishing.'
+                 : 'Calm energy, finesse tactics recommended.';
+        const speciesPools = [
+            ['Pike','Perch'],
+            ['Perch','Bream'],
+            ['Pike','Catfish'],
+            ['Bream','Carp'],
+            ['Trout','Perch']
+        ];
+        const species = speciesPools[day % speciesPools.length];
+        const tip = ratingVal >= 4
+            ? 'Plan a longer session and cover more water. Try new spots you have been thinking about.'
+            : ratingVal === 3
+        ? 'Fish your confidence spots and vary lure speeds to trigger bites.'
+        : 'Focus on precise presentations near structure and avoid noisy lures.';
+        return { phase, ratingVal, ratingLabel, ratingColor, energy, species, tip };
+    }
+
+    function generateDayConditions(dayData, zodiac) {
+        const z = (zodiac || '').toLowerCase();
+        let styleHint = '';
+        if (z.includes('pisces') || z.includes('рыбы')) {
+            styleHint = 'Lean into subtle, fluid presentations and trust your reading of the water instead of gadgets.';
+        } else if (z.includes('aries') || z.includes('овен')) {
+            styleHint = 'Aggressive, fast-moving lures and power fishing match your natural drive.';
+        } else if (z.includes('taurus') || z.includes('телец')) {
+            styleHint = 'Comfort and stability suit you: pick a solid swim and work it patiently.';
+        } else {
+            styleHint = 'Blend experimentation with discipline: log what works and repeat the successful patterns.';
         }
 
-        function generateDayData(date) {
-            const day = date.getDate();
-            const phases = ['New', 'Waxing', 'First Quarter', 'Waxing Gibbous', 'Full', 'Waning Gibbous', 'Last Quarter', 'Waning'];
-            const phase = phases[day % phases.length];
-            const ratingVal = (day % 5) + 1;
-            const ratingLabel = ratingVal >= 4 ? 'High' : ratingVal === 3 ? 'Medium' : 'Low';
-            const ratingColor = ratingVal >= 4 ? 'bg-green-500/20 text-green-400'
-                          : ratingVal === 3 ? 'bg-yellow-500/20 text-yellow-400'
-                          : 'bg-red-500/20 text-red-400';
-            const energy = ratingVal >= 4 ? 'Strong, dynamic currents. Great for predators.'
-                     : ratingVal === 3 ? 'Balanced conditions, versatile fishing.'
-                     : 'Calm energy, finesse tactics recommended.';
-            const speciesPools = [
-                ['Pike','Perch'],
-                ['Perch','Bream'],
-                ['Pike','Catfish'],
-                ['Bream','Carp'],
-                ['Trout','Perch']
-            ];
-            const species = speciesPools[day % speciesPools.length];
-            const tip = ratingVal >= 4
-                ? 'Plan a longer session and cover more water. Try new spots you have been thinking about.'
-                : ratingVal === 3
-            ? 'Fish your confidence spots and vary lure speeds to trigger bites.'
-            : 'Focus on precise presentations near structure and avoid noisy lures.';
-            return { phase, ratingVal, ratingLabel, ratingColor, energy, species, tip };
+        let conditions = '';
+        let gear = '';
+        let lures = '';
+        let strategy = '';
+
+        if (dayData.ratingVal >= 4) {
+            conditions = 'Expect active fish, especially predators. Shallow and mid-depth structure will hold bait and aggressive hunters.';
+            gear = 'Medium-heavy spinning or baitcasting tackle with reliable drag. Fluorocarbon or thin braid with a leader.';
+            lures = 'Flashy spoons, spinnerbaits, medium-size crankbaits, and shad-style soft baits in bright or contrasty colors.';
+            strategy = 'Cover water methodically at a brisk pace. Make multiple casts from different angles, then move if you see no sign of life within 15–20 minutes.';
+        } else if (dayData.ratingVal === 3) {
+            conditions = 'Fish activity is balanced. Multiple patterns can work, from shallow to deeper breaks.';
+            gear = 'Versatile medium spinning combo with a mix of hard and soft baits in natural colors.';
+            lures = 'Jig heads with soft plastics, small cranks, finesse rigs. Adjust size and color to water clarity.';
+            strategy = 'Start with your confidence pattern, then rotate depth and speed every 30–40 minutes until you find consistent bites.';
+        } else {
+            conditions = 'Bite is likely to be cautious. Expect fish to stay tight to cover, deeper holes, or stable temperature layers.';
+            gear = 'Light or ultra-light tackle with sensitive tips and thin line to maximise subtle takes.';
+            lures = 'Small soft lures, worms, natural baits, and finesse rigs in muted, realistic colors.';
+            strategy = 'Fish slowly and precisely around key structures. Let the lure soak longer and avoid constant spot hopping.';
         }
 
-        function generateDayConditions(dayData, zodiac) {
-            const z = (zodiac || '').toLowerCase();
-            let styleHint = '';
-            if (z.includes('pisces') || z.includes('рыбы')) {
-                styleHint = 'Lean into subtle, fluid presentations and trust your reading of the water instead of gadgets.';
-            } else if (z.includes('aries') || z.includes('овен')) {
-                styleHint = 'Aggressive, fast-moving lures and power fishing match your natural drive.';
-            } else if (z.includes('taurus') || z.includes('телец')) {
-                styleHint = 'Comfort and stability suit you: pick a solid swim and work it patiently.';
-            } else {
-                styleHint = 'Blend experimentation with discipline: log what works and repeat the successful patterns.';
-            }
+        strategy += ' ' + styleHint;
+        return {conditions, gear, lures, strategy};
+    }
 
-            let conditions = '';
-            let gear = '';
-            let lures = '';
-            let strategy = '';
-
-            if (dayData.ratingVal >= 4) {
-                conditions = 'Expect active fish, especially predators. Shallow and mid-depth structure will hold bait and aggressive hunters.';
-                gear = 'Medium-heavy spinning or baitcasting tackle with reliable drag. Fluorocarbon or thin braid with a leader.';
-                lures = 'Flashy spoons, spinnerbaits, medium-size crankbaits, and shad-style soft baits in bright or contrasty colors.';
-                strategy = 'Cover water methodically at a brisk pace. Make multiple casts from different angles, then move if you see no sign of life within 15–20 minutes.';
-            } else if (dayData.ratingVal === 3) {
-                conditions = 'Fish activity is balanced. Multiple patterns can work, from shallow to deeper breaks.';
-                gear = 'Versatile medium spinning combo with a mix of hard and soft baits in natural colors.';
-                lures = 'Jig heads with soft plastics, small cranks, finesse rigs. Adjust size and color to water clarity.';
-                strategy = 'Start with your confidence pattern, then rotate depth and speed every 30–40 minutes until you find consistent bites.';
-            } else {
-                conditions = 'Bite is likely to be cautious. Expect fish to stay tight to cover, deeper holes, or stable temperature layers.';
-                gear = 'Light or ultra-light tackle with sensitive tips and thin line to maximise subtle takes.';
-                lures = 'Small soft lures, worms, natural baits, and finesse rigs in muted, realistic colors.';
-                strategy = 'Fish slowly and precisely around key structures. Let the lure soak longer and avoid constant spot hopping.';
-            }
-
-            strategy += ' ' + styleHint;
-            return {conditions, gear, lures, strategy};
+    function renderCalendarEventsForDay(dateISO) {
+        calendarEventsList.innerHTML = '';
+        const items = calendarEvents[dateISO] || [];
+        if (!items.length) {
+            const empty = document.createElement('div');
+            empty.className = 'text-[11px] text-gray-500';
+            empty.textContent = 'No events for this day yet.';
+            calendarEventsList.appendChild(empty);
+            return;
         }
-
-        function renderCalendarEventsForDay(dateISO) {
-            calendarEventsList.innerHTML = '';
-            const items = calendarEvents[dateISO] || [];
-            if (!items.length) {
-                const empty = document.createElement('div');
-                empty.className = 'text-[11px] text-gray-500';
-                empty.textContent = 'No events for this day yet.';
-                calendarEventsList.appendChild(empty);
-                return;
-            }
-            items.forEach((ev, idx) => {
-                const row = document.createElement('div');
-                row.className = 'glass-panel rounded-xl p-2 flex justify-between items-start';
-                row.innerHTML = `
-                    <div class="mr-2">
-                        <div class="font-semibold text-[11px] text-gray-100">${ev.title || 'Session'}</div>
-                        <div class="text-[10px] text-gray-400">${ev.time || ''}</div>
-                        ${ev.note ? `<div class="mt-1 text-[11px] text-gray-300">${ev.note}</div>` : ''}
-                    </div>
-                    <button data-idx="${idx}" class="calendar-event-remove text-[10px] text-red-400 hover:underline">Del</button>
-                `;
-                calendarEventsList.appendChild(row);
-            });
-        }
-
-        calendarEventsList.addEventListener('click', (e) => {
-            const btn = e.target.closest('.calendar-event-remove');
-            if (!btn || !currentCalendarDateISO) return;
-            const idx = Number(btn.getAttribute('data-idx'));
-            const arr = calendarEvents[currentCalendarDateISO] || [];
-            arr.splice(idx,1);
-            calendarEvents[currentCalendarDateISO] = arr;
-            saveJSON(calendarEventsKey, calendarEvents);
-            renderCalendarEventsForDay(currentCalendarDateISO);
+        items.forEach((ev, idx) => {
+            const row = document.createElement('div');
+            row.className = 'glass-panel rounded-xl p-2 flex justify-between items-start';
+            row.innerHTML = `
+                <div class="mr-2">
+                    <div class="font-semibold text-[11px] text-gray-100">${ev.title || 'Session'}</div>
+                    <div class="text-[10px] text-gray-400">${ev.time || ''}</div>
+                    ${ev.note ? `<div class="mt-1 text-[11px] text-gray-300">${ev.note}</div>` : ''}
+                </div>
+                <button data-idx="${idx}" class="calendar-event-remove text-[10px] text-red-400 hover:underline">Del</button>
+            `;
+            calendarEventsList.appendChild(row);
         });
+    }
 
-        calendarEventForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (!currentCalendarDateISO) return;
-            const fd = new FormData(calendarEventForm);
-            const ev = {
-                title: fd.get('title')?.trim() || 'Session',
-                time: fd.get('time')?.trim() || '',
-                note: fd.get('note')?.trim() || ''
-            };
-            if (!calendarEvents[currentCalendarDateISO]) calendarEvents[currentCalendarDateISO] = [];
-            calendarEvents[currentCalendarDateISO].push(ev);
-            saveJSON(calendarEventsKey, calendarEvents);
-            calendarEventForm.reset();
-            renderCalendarEventsForDay(currentCalendarDateISO);
-        });
+    calendarEventsList.addEventListener('click', (e) => {
+        const btn = e.target.closest('.calendar-event-remove');
+        if (!btn || !currentCalendarDateISO) return;
+        const idx = Number(btn.getAttribute('data-idx'));
+        const arr = calendarEvents[currentCalendarDateISO] || [];
+        arr.splice(idx,1);
+        calendarEvents[currentCalendarDateISO] = arr;
+        saveJSON(calendarEventsKey, calendarEvents);
+        renderCalendarEventsForDay(currentCalendarDateISO);
+    });
 
-        function renderCalendar() {
-            calendarGrid.innerHTML = '';
-            const now = calendarToday;
-            const year = now.getFullYear();
-            const month = now.getMonth();
-            const first = new Date(year, month, 1);
-            const last = new Date(year, month + 1, 0);
-            const daysInMonth = last.getDate();
-            const startWeekday = (first.getDay() + 6) % 7; // Monday=0
+    calendarEventForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!currentCalendarDateISO) return;
+        const fd = new FormData(calendarEventForm);
+        const ev = {
+            title: fd.get('title')?.trim() || 'Session',
+            time: fd.get('time')?.trim() || '',
+            note: fd.get('note')?.trim() || ''
+        };
+        if (!calendarEvents[currentCalendarDateISO]) calendarEvents[currentCalendarDateISO] = [];
+        calendarEvents[currentCalendarDateISO].push(ev);
+        saveJSON(calendarEventsKey, calendarEvents);
+        calendarEventForm.reset();
+        renderCalendarEventsForDay(currentCalendarDateISO);
+    });
 
-            const monthName = now.toLocaleString(undefined, { month:'long', year:'numeric' });
-            calendarMonthLabel.textContent = monthName;
+    function renderCalendar() {
+        calendarGrid.innerHTML = '';
+        const now = calendarToday;
+        const year = now.getFullYear();
+        const month = now.getMonth();
+        const first = new Date(year, month, 1);
+        const last = new Date(year, month + 1, 0);
+        const daysInMonth = last.getDate();
+        const startWeekday = (first.getDay() + 6) % 7; // Monday=0
 
-            for (let i = 0; i < startWeekday; i++) {
-                const d = document.createElement('div');
-                calendarGrid.appendChild(d);
-            }
+        const monthName = now.toLocaleString(undefined, { month:'long', year:'numeric' });
+        calendarMonthLabel.textContent = monthName;
 
-            for (let d = 1; d <= daysInMonth; d++) {
-                const date = new Date(year, month, d);
-                const dateISO = date.toISOString().slice(0,10);
-                const dayData = generateDayData(date);
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'rounded-xl py-1 flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 transition-colors';
-                if (d === now.getDate()) btn.classList.add('border','border-accent/60');
-                btn.innerHTML = `
-                    <div class="text-[11px]">${d}</div>
-                    <div class="mt-0.5 flex gap-0.5">
-                        <span class="w-1 h-1 rounded-full ${dayData.ratingVal>=3 ? 'bg-accent' : 'bg-gray-500'}"></span>
-                        <span class="w-1 h-1 rounded-full ${dayData.ratingVal>=4 ? 'bg-accent' : 'bg-gray-500'}"></span>
-                        <span class="w-1 h-1 rounded-full ${dayData.ratingVal===5 ? 'bg-accent' : 'bg-gray-500'}"></span>
-                    </div>
-                `;
-                btn.addEventListener('click', () => {
-                    currentCalendarDateISO = dateISO;
-                    calendarDayDetail.classList.remove('hidden');
-                    dayDetailDate.textContent = date.toLocaleDateString(undefined, { day:'2-digit', month:'short' });
-                    dayDetailRating.textContent = dayData.ratingLabel + ' bite';
-                    dayDetailRating.className = `px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${dayData.ratingColor}`;
-                    dayDetailMoon.textContent = 'Moon phase: ' + dayData.phase;
-                    dayDetailEnergy.textContent = 'Energy: ' + dayData.energy;
-                    dayDetailSpecies.innerHTML = '';
-                    dayData.species.forEach(s => {
-                        const span = document.createElement('span');
-                        span.className = 'px-2 py-0.5 rounded-full bg-white/5 text-gray-200';
-                        span.textContent = s;
-                        dayDetailSpecies.appendChild(span);
-                    });
-                    dayDetailTip.textContent = dayData.tip;
-
-                    const cond = generateDayConditions(dayData, profile.zodiac);
-                    dayDetailConditions.textContent = cond.conditions;
-                    dayDetailGear.textContent = 'Gear: ' + cond.gear;
-                    dayDetailLures.textContent = 'Lures: ' + cond.lures;
-                    dayDetailStrategy.textContent = cond.strategy;
-
-                    renderCalendarEventsForDay(dateISO);
-                    calendarEventForm.reset();
-                });
-                calendarGrid.appendChild(btn);
-            }
+        for (let i = 0; i < startWeekday; i++) {
+            const d = document.createElement('div');
+            calendarGrid.appendChild(d);
         }
 
-        // Generate catch template from selected calendar day + horoscope
-        calendarGenerateCatchBtn.addEventListener('click', () => {
-            if (!currentCalendarDateISO) {
-                alert('Select a day in the calendar first.');
-                return;
-            }
-            const [year,month,day] = currentCalendarDateISO.split('-').map(Number);
-            const date = new Date(year, month-1, day, 6, 0); // 06:00
+        for (let d = 1; d <= daysInMonth; d++) {
+            const date = new Date(year, month, d);
+            const dateISO = date.toISOString().slice(0,10);
             const dayData = generateDayData(date);
-            const cond = generateDayConditions(dayData, profile.zodiac);
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'rounded-xl py-1 flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 transition-colors';
+            if (d === now.getDate()) btn.classList.add('border','border-accent/60');
+            btn.innerHTML = `
+                <div class="text-[11px]">${d}</div>
+                <div class="mt-0.5 flex gap-0.5">
+                    <span class="w-1 h-1 rounded-full ${dayData.ratingVal>=3 ? 'bg-accent' : 'bg-gray-500'}"></span>
+                    <span class="w-1 h-1 rounded-full ${dayData.ratingVal>=4 ? 'bg-accent' : 'bg-gray-500'}"></span>
+                    <span class="w-1 h-1 rounded-full ${dayData.ratingVal===5 ? 'bg-accent' : 'bg-gray-500'}"></span>
+                </div>
+            `;
+            btn.addEventListener('click', () => {
+                currentCalendarDateISO = dateISO;
+                calendarDayDetail.classList.remove('hidden');
+                dayDetailDate.textContent = date.toLocaleDateString(undefined, { day:'2-digit', month:'short' });
+                dayDetailRating.textContent = dayData.ratingLabel + ' bite';
+                dayDetailRating.className = `px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${dayData.ratingColor}`;
+                dayDetailMoon.textContent = 'Moon phase: ' + dayData.phase;
+                dayDetailEnergy.textContent = 'Energy: ' + dayData.energy;
+                dayDetailSpecies.innerHTML = '';
+                dayData.species.forEach(s => {
+                    const span = document.createElement('span');
+                    span.className = 'px-2 py-0.5 rounded-full bg-white/5 text-gray-200';
+                    span.textContent = s;
+                    dayDetailSpecies.appendChild(span);
+                });
+                dayDetailTip.textContent = dayData.tip;
 
-            const primarySpecies = dayData.species[0] || 'Fish';
-            const location = dayData.ratingVal >= 4 ? 'Prime spot (calendar)' : 'Confidence spot (calendar)';
-            const notes = `Generated from lunar calendar (${dayData.phase}, ${dayData.ratingLabel} day) and horoscope for ${profile.zodiac || 'your sign'}.\n\n` +
-                          `Conditions: ${cond.conditions}\n` +
-                          `Gear: ${cond.gear}\n` +
-                          `Lures: ${cond.lures}\n` +
-                          `Strategy: ${cond.strategy}`;
+                const cond = generateDayConditions(dayData, profile.zodiac);
+                dayDetailConditions.textContent = cond.conditions;
+                dayDetailGear.textContent = 'Gear: ' + cond.gear;
+                dayDetailLures.textContent = 'Lures: ' + cond.lures;
+                dayDetailStrategy.textContent = cond.strategy;
 
-            const newCatch = {
-                species: primarySpecies,
-                location,
-                length: null,
-                weight: null,
-                datetime: date.toISOString(),
-                photo: '',
-                notes
-            };
-            catches.push(newCatch);
-            saveJSON(catchKey, catches);
-            renderCatches();
-            showScreen('screen-log');
-            // переключим на Catches, чтобы сразу было видно
-            logTabCatches.click();
-        });
+                renderCalendarEventsForDay(dateISO);
+                calendarEventForm.reset();
+            });
+            calendarGrid.appendChild(btn);
+        }
+    }
 
-        // ---------- CHART (Today screen) ----------
-        window.addEventListener('load', function() {
-            try {
-                const trace1 = {
-                    x: ['04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
-                    y: [30, 85, 60, 40, 35, 45, 55, 90, 70, 40],
-                    type: 'scatter',
-                    mode: 'lines',
-                    fill: 'tozeroy',
-                    line: {
-                        color: '#4FD1C5',
-                        width: 2,
-                        shape: 'spline'
-                    },
-                    fillcolor: 'rgba(79, 209, 197, 0.1)'
-                };
+    // Generate catch template from selected calendar day + horoscope
+    calendarGenerateCatchBtn.addEventListener('click', () => {
+        if (!currentCalendarDateISO) {
+            alert('Select a day in the calendar first.');
+            return;
+        }
+        const [year,month,day] = currentCalendarDateISO.split('-').map(Number);
+        const date = new Date(year, month-1, day, 6, 0); // 06:00
+        const dayData = generateDayData(date);
+        const cond = generateDayConditions(dayData, profile.zodiac);
 
-                const layout = {
-                    margin: { t: 10, r: 10, b: 30, l: 30 },
-                    paper_bgcolor: 'rgba(0,0,0,0)',
-                    plot_bgcolor: 'rgba(0,0,0,0)',
-                    showlegend: false,
-                    xaxis: {
-                        showgrid: false,
-                        color: '#718096',
-                        tickfont: { size: 10 }
-                    },
-                    yaxis: {
-                        showgrid: true,
-                        gridcolor: 'rgba(255,255,255,0.05)',
-                        color: '#718096',
-                        tickfont: { size: 10 },
-                        range: [0, 100]
-                    },
-                    height: 200
-                };
+        const primarySpecies = dayData.species[0] || 'Fish';
+        const location = dayData.ratingVal >= 4 ? 'Prime spot (calendar)' : 'Confidence spot (calendar)';
+        const notes = `Generated from lunar calendar (${dayData.phase}, ${dayData.ratingLabel} day) and horoscope for ${profile.zodiac || 'your sign'}.\n\n` +
+                      `Conditions: ${cond.conditions}\n` +
+                      `Gear: ${cond.gear}\n` +
+                      `Lures: ${cond.lures}\n` +
+                      `Strategy: ${cond.strategy}`;
 
-                const config = {
-                    responsive: true,
-                    displayModeBar: false,
-                    staticPlot: true
-                };
-
-                Plotly.newPlot('hourlyChart', [trace1], layout, config);
-            } catch(e) {
-                console.error("Chart error:", e);
-            }
-        });
-
-        // ---------- INIT ----------
-        renderProfile();
+        const newCatch = {
+            species: primarySpecies,
+            location,
+            length: null,
+            weight: null,
+            datetime: date.toISOString(),
+            photo: '',
+            notes
+        };
+        catches.push(newCatch);
+        saveJSON(catchKey, catches);
         renderCatches();
-        renderFishList();
-        renderCalendar();
-        showScreen('screen-today');
-    </script>
+        showScreen('screen-log');
+        // переключим на Catches, чтобы сразу было видно
+        logTabCatches.click();
+    });
 
+    // ---------- CHART (Today screen) ----------
+    window.addEventListener('load', function() {
+        try {
+            const trace1 = {
+                x: ['04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+                y: [30, 85, 60, 40, 35, 45, 55, 90, 70, 40],
+                type: 'scatter',
+                mode: 'lines',
+                fill: 'tozeroy',
+                line: {
+                    color: '#4FD1C5',
+                    width: 2,
+                    shape: 'spline'
+                },
+                fillcolor: 'rgba(79, 209, 197, 0.1)'
+            };
 
-</body></html>
+            const layout = {
+                margin: { t: 10, r: 10, b: 30, l: 30 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                showlegend: false,
+                xaxis: {
+                    showgrid: false,
+                    color: '#718096',
+                    tickfont: { size: 10 }
+                },
+                yaxis: {
+                    showgrid: true,
+                    gridcolor: 'rgba(255,255,255,0.05)',
+                    color: '#718096',
+                    tickfont: { size: 10 },
+                    range: [0, 100]
+                },
+                height: 200
+            };
+
+            const config = {
+                responsive: true,
+                displayModeBar: false,
+                staticPlot: true
+            };
+
+            Plotly.newPlot('hourlyChart', [trace1], layout, config);
+        } catch(e) {
+            console.error("Chart error:", e);
+        }
+    });
+
+    // ---------- INIT ----------
+    renderProfile();
+    renderCatches();
+    renderFishList();
+    renderCalendar();
+    showScreen('screen-today');
+</script>
+</body>
+</html>
