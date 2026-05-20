@@ -88,3 +88,5 @@ flutter:
   assets:
     - assets/fish.html
     - assets/joday_fish.png
+    - assets/background.png
+    - assets/fish.png

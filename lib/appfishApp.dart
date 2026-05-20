@@ -36,12 +36,7 @@ class _FishCalendarHelpLiteState extends State<FishCalendarHelpLite> {
       },
       child: Scaffold(
         backgroundColor: Colors.black,
-        appBar: AppBar(
-          title: const Text(""),
-          centerTitle: true,
-          backgroundColor: Colors.black,
-          elevation: 0,
-        ),
+
         body: SafeArea(
           child: Stack(
             children: <Widget>[
@@ -88,9 +83,7 @@ class _FishCalendarHelpLiteState extends State<FishCalendarHelpLite> {
                 const Positioned.fill(
                   child: ColoredBox(
                     color: Colors.black87,
-                    child: Center(
-                      child: JoDayLoader(),
-                    ),
+
                   ),
                 ),
             ],
